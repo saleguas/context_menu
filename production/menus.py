@@ -19,8 +19,8 @@ class ContextMenu:
             self.sub_items.append(item)
 
     def compile(self):
-        menu = linux_menus.NautilusMenu(self.name, self.sub_items, self.type).compile()
-        print(menu)
+        linux_menus.NautilusMenu(self.name, self.sub_items, self.type).compile()
+
 
 
 class ContextCommand:

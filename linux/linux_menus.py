@@ -1,4 +1,5 @@
 from code_preset import ExistingCode
+import os
 
 class Variable:
 
@@ -61,22 +62,36 @@ class NautilusMenu:
                 formatted_command = self.connect(top_menu.name, formatted_command.name)
                 self.commands.append(formatted_command)
 
-
-
-
-    def compile(self):
+    def build_script(self):
         self.build_script_body(self.name, self.sub_items)
-        code_body = '\n'.join(map(lambda x: '\t' + x, self.commands))
-        print(code_body)
+        self.commands.append('return menuitem0,')
+        code_body = '\n'.join(map(lambda x: '\t\t' + x, self.commands))
         full_code = '''
-        {}
-        {}
-        {}
-        {}
+{}
+{}
+{}
+{}
         '''.format(ExistingCode.CODE_HEAD.value, ExistingCode.CLASS_TEMPLATE.value, ExistingCode.FILE_ITEMS.value, code_body)
 
         return full_code
 
+    def create_path(self, path, dir):
+        new_dir = os.path.join(path, dir)
+        if not os.path.exists(new_dir):
+            os.makedirs(new_dir)
+        return new_dir
+
+
+    def compile(self):
+        code = self.build_script()
+        save_loc = os.path.join(os.path.expanduser('~'), '.local/share/')
+        print(save_loc)
+        save_loc = self.create_path(save_loc, 'nautilus-python')
+        save_loc = self.create_path(save_loc, 'extensions')
+        save_loc = os.path.join(save_loc, f'{self.name}.py')
+        py_file = open(save_loc, 'w')
+        py_file.write(code)
+        py_file.close()
 
 
 
