@@ -12,7 +12,7 @@ import inspect
 
 class ContextMenu:
 
-    def __init__(self, name):
+    def __init__(self, name, type=None):
         self.name = name
         self.sub_items = []
         self.type = type
@@ -55,7 +55,7 @@ class ContextCommand:
 import test1
 import test2
 
-cm = ContextMenu('Foo')
+cm = ContextMenu('Foo', type='directory_background')
 
 cm2 = ContextMenu('Foo2')
 cm3 = ContextMenu('Foo3')
@@ -64,7 +64,7 @@ cm3.add_items([
 ])
 cm2.add_items([
     cm3,
-    ContextCommand('Command2', python=test1.foo2)
+    ContextCommand('Command2', python=test2.foo1)
 ])
 cm.add_items([
     cm2,

@@ -95,7 +95,8 @@ class NautilusMenu:
                     self.script_dirs.append(item_info[2])
                     self.imports.append(item_info[1])
                 else:
-                    connected_func = self.generate_func('os', 'system')
+                    raise ValueError('Context Command python parameter None or nonexistant in LinuxMenus')
+                    # connected_func = self.generate_func('os', 'system')
 
                 self.funcs.append(connected_func.code)
 
@@ -109,7 +110,7 @@ class NautilusMenu:
     def build_script(self):
         self.build_script_body(self.name, self.sub_items)
         self.commands.append('return menuitem0,')
-        full_code = CodeBuilder(self.commands, self.script_dirs, self.funcs, self.imports).compile()
+        full_code = CodeBuilder(self.commands, self.script_dirs, self.funcs, self.imports, self.type).compile()
 
         return full_code
 

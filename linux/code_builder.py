@@ -2,11 +2,12 @@ from code_preset import ExistingCode
 
 class CodeBuilder:
 
-    def __init__(self, body_commands, script_dirs, funcs, imports):
+    def __init__(self, body_commands, script_dirs, funcs, imports, type):
         self.body_commands = body_commands
         self.script_dirs = script_dirs
         self.funcs = funcs
         self.imports = imports
+        self.type = type.upper()
 
     def build_script_dirs(self):
         compiled_dirs = [f'sys.path.append("{x}")' for x in self.script_dirs]
@@ -24,6 +25,8 @@ class CodeBuilder:
         class_dec = ExistingCode.CLASS_TEMPLATE.value
         class_funcs = '\n\n'.join(self.funcs)
         class_type = ExistingCode.FILE_ITEMS.value
+        if self.type in ['DIRECTORY_BACKGROUND', 'DESKTOP_BACKGROUND']:
+            class_type = ExistingCode.BACKGROUND_ITEMS.value
         class_body = '\n'.join(map(lambda x: '\t\t' + x, self.body_commands))
 
 
