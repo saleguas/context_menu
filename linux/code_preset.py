@@ -33,6 +33,6 @@ class ExampleMenuProvider(GObject.GObject, Nautilus.MenuProvider):
 '''
 
     FILE_ITEMS = '\tdef get_file_items(self, window, files):'
-    BACKGROUND_ITEMS = '\tdef get_background_items(self, window, file):'
+    BACKGROUND_ITEMS = '\tdef get_background_items(self, window, files):'
     SUB_MENU = 'submenu{} = Nautilus.Menu()'
     MENU_ITEM = 'menuitem{} = Nautilus.MenuItem(name = "ExampleMenuProvider::{}", label="{}", tip = "{}", icon = "{}")'
