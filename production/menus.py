@@ -64,7 +64,7 @@ cm3.add_items([
 ])
 cm2.add_items([
     cm3,
-    ContextCommand('Command2', python=test2.foo1)
+    ContextCommand('Command2', python=test1.foo2)
 ])
 cm.add_items([
     cm2,

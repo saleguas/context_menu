@@ -4,9 +4,9 @@ class CodeBuilder:
 
     def __init__(self, body_commands, script_dirs, funcs, imports, type):
         self.body_commands = body_commands
-        self.script_dirs = script_dirs
+        self.script_dirs = list(set(script_dirs))
         self.funcs = funcs
-        self.imports = imports
+        self.imports = list(set(imports))
         self.type = type.upper()
 
     def build_script_dirs(self):
