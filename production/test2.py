@@ -1,2 +1,7 @@
+import os
+import sys
+
 def foo3(filenames):
-    print('yoink')
+	print(sys.argv)
+	print(filenames)
+	input()

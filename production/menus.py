@@ -1,14 +1,19 @@
 import sys
-sys.path.insert(0, "../linux")
 
+sys.path.append("../linux")
+sys.path.append('../windows')
 try:
     import linux_menus
+    import windows_menus
 except ImportError:
     print('Import error')
 
+
 import os
 import inspect
+import platform
 
+print(os.getcwd())
 
 class ContextMenu:
 
@@ -25,7 +30,11 @@ class ContextMenu:
             self.sub_items.append(item)
 
     def compile(self):
-        linux_menus.NautilusMenu(self.name, self.sub_items, self.type).compile()
+        if platform.system() == 'Linux':
+            linux_menus.NautilusMenu(self.name, self.sub_items, self.type).compile()
+        if platform.system() == 'Windows':
+            windows_menus.RegistryMenu(self.name, self.sub_items, self.type).compile()
+
 
 
 
@@ -37,6 +46,12 @@ class ContextCommand:
         self.isMenu = False
         self.python = python
 
+        if command != None and python != None:
+            raise ValueError('both command and python cannot be defined')
+
+    def get_platform_command(self):
+        return self.command[platform.system().lower()]
+
     def get_method_info(self):
         func_file_path = os.path.abspath(inspect.getfile(self.python))
 
@@ -47,29 +62,58 @@ class ContextCommand:
         return (func_name, func_file_name, func_dir_path)
 
 
+class FastCommand:
+
+    def __init__(self, name, type, command=None, python=None):
+        self.name = name
+        self.type = type
+        self.command = command
+        self.python = python
+
+        if command != None and python != None:
+            raise ValueError('both command and python cannot be defined')
+
+    def get_method_info(self):
+        func_file_path = os.path.abspath(inspect.getfile(self.python))
+
+        func_dir_path = os.path.dirname(func_file_path)
+        func_name = self.python.__name__
+        func_file_name = os.path.splitext(os.path.basename(func_file_path))[0]
+
+        return (func_name, func_file_name, func_dir_path)
+
+    def compile(self):
+        if platform.system() == 'Linux':
+            linux_menus.NautilusMenu(self.name, [ContextCommand(self.name, command=self.command, python=self.python)], self.type).compile()
+        if platform.system() == 'Windows':
+            windows_menus.FastRegistryCommand(self.name, self.type, self.command, self.python).compile()
 
 
 
 
+# import test1
+# import test2
+#
+# fastCom = FastCommand('FooTest', 'FILES', python=test1.foo1)
+# fastCom.compile()
+#----------------------------------------------
 
-import test1
-import test2
-
-cm = ContextMenu('Foo', type='directory_background')
-
-cm2 = ContextMenu('Foo2')
-cm3 = ContextMenu('Foo3')
-cm3.add_items([
-    ContextCommand('foo1', python=test1.foo1)
-])
-cm2.add_items([
-    cm3,
-    ContextCommand('Command2', python=test1.foo2)
-])
-cm.add_items([
-    cm2,
-    ContextCommand('Command3', python=test2.foo3)
-])
+# cm = ContextMenu('Foo', type='DIRECTORY_BACKGROUND')
+#
+# cm2 = ContextMenu('Foo2')
+# cm3 = ContextMenu('Foo3')
+# cm3.add_items([
+#     ContextCommand('foo1', python=test1.foo1)
+# ])
+# cm2.add_items([
+#     cm3,
+#     ContextCommand('Command2', python=test1.foo2)
+# ])
+# cm.add_items([
+#     cm2,
+#     ContextCommand('Command3', python=test2.foo3)
+# ])
+#----------------------------------------------
 
 # cm = ContextMenu('Foo')
 # cm3 = ContextMenu('Foo3')
@@ -82,7 +126,7 @@ cm.add_items([
 #     ContextCommand('Command3', 'ex')
 # ])
 #
-print(cm.compile())
+# print(cm.compile())
 
 # top_command/
 #     menu0/

@@ -2,89 +2,108 @@ import registry_shortcuts as reg
 import advanced_reg_config as arc
 import os
 
-class RegistryCommand:
-    '''
-    Base class for a selectable command.
-    '''
-
-    def __init__(self, path, command, preset=None):
-        self.path = path
-        self.command = command
-        if preset != None:
-            self.command = arc.command_preset_format(preset) + ' ' + os.path.abspath(command)
-            print(self.command)
-        self.base_values = []
-
-    def update_command_path(self):
-        self.command_path = self.path + '\\command'
-
-    def add_base_values(self, vals):
-        for key in vals.keys():
-            self.base_values.append((key, vals[key]))
-
-
-    def compile(self):
-        reg.run_admin()
-        self.update_command_path()
-        reg.create_key(self.path)
-        reg.create_key(self.command_path)
-
-        for val_pair in self.base_values:
-            reg.set_key_value(self.path, val_pair[0], val_pair[1])
-
-        reg.set_key_value(self.command_path, '', self.command)
-
-
-class FastRegistryCommand(RegistryCommand):
-
-    def __init__(self, name, command, preset=None):
-        super().__init__('', command, preset)
-
-    def update_path(self, path):
-        self.path = path
 
 
 # ------------------------------------------------------------------
 
 
-
-
 class RegistryMenu:
 
-    def __init__(self, path, name):
-        self.path = path
+    def __init__(self, name, sub_items, type):
         self.name = name
-        self.items = []
+        self.sub_items = sub_items
+        self.type = type.upper()
+        self.path = arc.context_registry_format(type)
 
-    def add_items(self, items):
+    def create_menu(self, name, path):
+        key_path = os.path.join(path, name)
+        reg.create_key(key_path)
+
+        reg.set_key_value(key_path, 'MUIVerb', name)
+        reg.set_key_value(key_path, 'subcommands', '')
+
+        key_shell_path = os.path.join(key_path, 'shell')
+        reg.create_key(key_shell_path)
+
+        return key_shell_path
+
+    def create_command(self, name, path, command):
+        key_path = os.path.join(path, name)
+        reg.create_key(key_path)
+        reg.set_key_value(key_path, '', name)
+
+        command_path = os.path.join(key_path, 'command')
+        reg.create_key(command_path)
+        reg.set_key_value(command_path, '', command)
+
+
+
+
+
+
+    def compile(self, items=None, path=None):
+        if items == None:
+            reg.run_admin()
+            items = self.sub_items
+            path = self.create_menu(self.name, self.path)
+
         for item in items:
-            self.items.append(item)
+            if item.isMenu:
+                submenu_path = self.create_menu(item.name, path)
+                self.compile(items=item.sub_items,path=submenu_path)
+            else:
+                if item.command == None:
+                    func_name, func_file_name, func_dir_path = item.get_method_info()
+                    new_command = None
+                    if self.type in ['DIRECTORY_BACKGROUND', 'DESKTOP_BACKGROUND']:
+                        new_command = arc.create_directory_background_command(func_name, func_file_name, func_dir_path)
+                    else:
+                        new_command = arc.create_file_select_command(func_name, func_file_name, func_dir_path)
+                    self.create_command(item.name, path, new_command)
+                else:
+                    self.create_command(item.name, path, item.command)
+
+
+
+class FastRegistryCommand:
+
+    def __init__(self, name, type, command, python):
+        self.name = name
+        self.type = type
+        self.path = arc.context_registry_format(type)
+        self.command = command
+        self.python = python
+
+    def get_method_info(self):
+        import inspect
+
+        func_file_path = os.path.abspath(inspect.getfile(self.python))
+
+        func_dir_path = os.path.dirname(func_file_path)
+        func_name = self.python.__name__
+        func_file_name = os.path.splitext(os.path.basename(func_file_path))[0]
+
+        return (func_name, func_file_name, func_dir_path)
 
     def compile(self):
         reg.run_admin()
 
-        reg.create_key(self.path)
-        reg.set_key_value(self.path, 'MUIVerb', self.name)
-        reg.set_key_value(self.path, 'subcommands', '')
-        self.path = self.path + '\\shell'
-        reg.create_key(self.path)
+        key_path = os.path.join(self.path, self.name)
+        reg.create_key(key_path)
 
-        for item in self.items:
-            item.update_path(self.path + '\\' + item.name)
-            print(self.path + '\\' + item.name, item)
-            item.compile()
+        command_path = os.path.join(key_path, 'command')
+        reg.create_key(command_path)
 
-class FastRegistryMenu(RegistryMenu):
-
-    def __init__(self, type, name):
-        self.path = arc.context_registry_format(type) + '\\' + name
-        super().__init__(self.path, name)
+        new_command = None
 
 
-class FastRegistrySubMenu(RegistryMenu):
+        if self.command == None:
+            func_name, func_file_name, func_dir_path = self.get_method_info()
+            if self.type in ['DIRECTORY_BACKGROUND', 'DESKTOP_BACKGROUND']:
+                new_command = arc.create_directory_background_command(func_name, func_file_name, func_dir_path)
+            else:
+                new_command = arc.create_file_select_command(func_name, func_file_name, func_dir_path)
+        else:
+            new_command = self.command
 
-    def __init__(self, name):
-        super().__init__('', name)
-
-    def update_path(self, path):
-        self.path = path
+        reg.set_key_value(command_path, '', new_command)

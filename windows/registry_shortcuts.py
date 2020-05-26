@@ -23,7 +23,7 @@ def run_admin():
 def create_key(path, hive = winreg.HKEY_CLASSES_ROOT):
     winreg.CreateKey(hive, path)
 
-def set_key_value(key_path, subkey_name, value, hive = winreg.HKEY_CLASSES_ROOT):
+def set_key_value(key_path, subkey_name, value, hive=winreg.HKEY_CLASSES_ROOT):
     '''
     Changes the value of a subkey.
 
