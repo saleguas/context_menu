@@ -1,0 +1,16 @@
+README.md
+setup.py
+context_menu/__init__.py
+context_menu/menus.py
+context_menu.egg-info/PKG-INFO
+context_menu.egg-info/SOURCES.txt
+context_menu.egg-info/dependency_links.txt
+context_menu.egg-info/top_level.txt
+context_menu/linux/__init__.py
+context_menu/linux/code_builder.py
+context_menu/linux/code_preset.py
+context_menu/linux/linux_menus.py
+context_menu/windows/__init__.py
+context_menu/windows/advanced_reg_config.py
+context_menu/windows/registry_shortcuts.py
+context_menu/windows/windows_menus.py

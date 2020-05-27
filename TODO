@@ -1,7 +1,0 @@
-- Implement one-line context entry
-- Add to open with menu
-- Try to disable menu limit
-- Try to disable alphabetation
-- Try to change open file limit (https://support.microsoft.com/en-us/help/2022295/context-menus-are-shortened-when-more-than-15-files-are-selected)
-- python -c "from test import lol; lol()"
-hello
