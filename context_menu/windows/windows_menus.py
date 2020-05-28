@@ -1,4 +1,7 @@
-import registry_shortcuts as reg
+try:
+    import registry_shortcuts as reg
+except:
+    print('Interferes with testing')
 import advanced_reg_config as arc
 import os
 
@@ -83,7 +86,7 @@ class RegistryMenu:
 class FastRegistryCommand:
     '''
     Fast command class.
-    
+
     Everything is identical to either the RegistryMenu class or code in the menus file
     '''
 

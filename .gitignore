@@ -1,0 +1,4 @@
+.pytest_cache
+build
+dist
+context_menu.egg-info

@@ -40,7 +40,7 @@ class ContextMenu:
 
     def compile(self):
         '''
-        Recognizes the current platform and passes information to the respective menu.
+        Recognizes the current platform and passes information to the respective menu. Creates the actual menu.
         '''
         if platform.system() == 'Linux':
             linux_menus.NautilusMenu(

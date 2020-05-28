@@ -1,6 +1,9 @@
 language: python            # this works for Linux but is an error on macOS or Windows
 jobs:
   include:
+    - name: "Python 3.8.0 on Xenial Linux"
+      python: 3.8
+    # Windows jobs first
     - name: "Python 3.6.0 on Windows"
       os: windows           # Windows 10.0.17134 N/A Build 17134
       language: shell       # 'language: python' is an error on Travis CI Windows
@@ -30,6 +33,10 @@ jobs:
         - pip3 install pytest
         - cd context_menu/tests
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
+
+      # Linux jobs
+
+
 
 install: pip3 install --upgrade pip  # all three OSes agree about 'pip3'
 script: pytest

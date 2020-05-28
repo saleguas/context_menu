@@ -1,4 +1,5 @@
 import winreg
+
 import ctypes
 import sys
 from enum import Enum

@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setuptools.setup(
     name="context_menu",
-    version="0.0.9",
+    version="0.0.10",
     description="Library to create cross-platform context menus.",
     long_description=README,
     long_description_content_type="text/markdown",
