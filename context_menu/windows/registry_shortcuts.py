@@ -8,7 +8,7 @@ from enum import Enum
 
 def is_admin():
     '''
-    Checks if the current instance had admin priviledges.
+    Returns True if the current python instance has admin, and false otherwise.
     '''
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -18,7 +18,7 @@ def is_admin():
 
 def run_admin():
     '''
-    Stops the current execution and runs the program again as admin.
+    If the python instance does not have admin priviledges, it stops the current execution and runs the program as admin.
     '''
     if not is_admin():
         ctypes.windll.shell32.ShellExecuteW(
@@ -37,7 +37,7 @@ def create_key(path: str, hive=winreg.HKEY_CLASSES_ROOT):
 
 def set_key_value(key_path: str, subkey_name: str, value: 'Value', hive=winreg.HKEY_CLASSES_ROOT):
     '''
-    Changes the value of a subkey. Creates the subkey if it doesn't exist
+    Changes the value of a subkey. Creates the subkey if it doesn't exist.
     '''
 
     registry_key = winreg.OpenKey(hive, key_path, 0,
@@ -48,7 +48,7 @@ def set_key_value(key_path: str, subkey_name: str, value: 'Value', hive=winreg.H
 
 def list_keys(path: str, hive=winreg.HKEY_CLASSES_ROOT) -> 'List of keys':
     '''
-    Lists all the other keys at the location given.
+    Returns a list of all the keys at a given registry path.
     '''
 
     open_key = winreg.OpenKey(hive, path)
@@ -64,7 +64,7 @@ def list_keys(path: str, hive=winreg.HKEY_CLASSES_ROOT) -> 'List of keys':
 
 def delete_key(path: str, hive=winreg.HKEY_CLASSES_ROOT):
     '''
-    Deletes the desired key and all other subkeys.
+    Deletes the desired key and all other subkeys at the given path.
     '''
     open_key = winreg.OpenKey(hive, path)
     subkeys = list_keys(path)

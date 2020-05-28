@@ -21,7 +21,9 @@ COMMAND_PRESETS = {
 
 def context_registry_format(item: str) -> 'registry path to the desired type':
     '''
-    Ensures the correct value is retrieved from the CONTEXT_SHORTCUTS dictionary.
+    Converts a verbose type into a registry path.
+
+    For example, 'FILES' -> '*\\shell'
     '''
     item = item.upper()
     if '.' in item:
@@ -31,14 +33,18 @@ def context_registry_format(item: str) -> 'registry path to the desired type':
 
 def command_preset_format(item: str) -> 'Path to desired python type':
     '''
-    Used to get the path to a python executable
+    Converts a python string to an executable location.
+
+    For example, 'python' -> sys.executable
     '''
     return COMMAND_PRESETS[item.lower()]
 
 
 def create_file_select_command(func_name: str, func_file_name: str, func_dir_path: str) -> 'Registry valid string to call python function':
     '''
-    Creates a registry valid command to link a context menu entry to a funtion, specifically for FILES.
+    Creates a registry valid command to link a context menu entry to a funtion, specifically for file selection(FILES, DIRECTORY, DRIVE).
+
+    Requires the name of the function, the name of the file, and the path to the directory of the file.
     '''
     python_loc = sys.executable
     sys_section = f'''import sys; sys.path.insert(0, '{func_dir_path[2:]}')'''.replace(
@@ -54,8 +60,9 @@ def create_file_select_command(func_name: str, func_file_name: str, func_dir_pat
 
 def create_directory_background_command(func_name: str, func_file_name: str, func_dir_path: str) -> 'Registry valid string to call python function':
     '''
-    Creates a registry valid command to link a context menu entry to a funtion, specifically for BACKGROUNDS.
+    Creates a registry valid command to link a context menu entry to a funtion, specifically for backgrounds(DIRECTORY_BACKGROUND, DESKTOP_BACKGROUND).
 
+    Requires the name of the function, the name of the file, and the path to the directory of the file.
     '''
     python_loc = sys.executable
     sys_section = f'''import sys; import os; sys.path.insert(0, '{func_dir_path[2:]}')'''.replace(

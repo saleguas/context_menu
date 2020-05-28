@@ -3,9 +3,9 @@ from enum import Enum
 
 class ExistingCode(Enum):
     '''
-    Preset values utilized by the linux_menus code
-
+    Preset values important for metaprogramming.
     '''
+    
     CODE_HEAD = '''
 import gi
 import sys

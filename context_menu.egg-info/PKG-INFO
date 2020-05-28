@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: context-menu
-Version: 0.0.8
+Version: 0.0.9
 Summary: Library to create cross-platform context menus.
 Home-page: https://github.com/saleguas/context_menu
 Author: Salvador Aleguas

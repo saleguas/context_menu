@@ -8,8 +8,14 @@ import os
 
 # Used to create a Registry entry
 class RegistryMenu:
+    '''
+    Class to convert the general menu from menus.py to a Windows-specific menu.
+    '''
 
     def __init__(self, name: str, sub_items: list, type: str):
+        '''
+        Handled automatically by menus.py, but requires a name, all the sub items, and a type
+        '''
         self.name = name
         self.sub_items = sub_items
         self.type = type.upper()
@@ -17,7 +23,9 @@ class RegistryMenu:
 
     def create_menu(self, name: str, path: str) -> 'Path to shell key of new menu':
         '''
-        Used in the compile method. Makes creating menus easier.
+        Creates a menu with the given name and path.
+
+        Used in the compile method.
         '''
         key_path = os.path.join(path, name)
         reg.create_key(key_path)
@@ -31,6 +39,9 @@ class RegistryMenu:
         return key_shell_path
 
     def create_command(self, name: str, path: str, command: str):
+        '''
+        Creates a key with a command subkey with the 'name' and 'command', at path 'path'.
+        '''
         key_path = os.path.join(path, name)
         reg.create_key(key_path)
         reg.set_key_value(key_path, '', name)
@@ -70,6 +81,11 @@ class RegistryMenu:
 # Fast command class
 # Everything is identical to either the RegistryMenu class or code in the menus file
 class FastRegistryCommand:
+    '''
+    Fast command class.
+    
+    Everything is identical to either the RegistryMenu class or code in the menus file
+    '''
 
     def __init__(self, name: str, type: str, command: str, python: 'function'):
         self.name = name

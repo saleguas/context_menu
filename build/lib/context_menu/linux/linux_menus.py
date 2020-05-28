@@ -3,11 +3,12 @@ from code_builder import CodeBuilder
 import os
 
 
-# Going to be honest, I don't recommend using this class or the methods in this class. Working with nautilus was a literal nightmare, and this code
-# wasn't really generalized.
 
 # Not necessary, but helps simplify the code.
 class Variable:
+    '''
+    Very simple class with no methods to help simplify the code.
+    '''
 
     def __init__(self, name: str, code: str):
         self.name = name
@@ -18,6 +19,9 @@ class NautilusMenu:
 
     # Constructor, automatically handeled by menus.py
     def __init__(self, name: str, sub_items: list, type: str):
+        '''
+        Items required are the name of the top menu, the sub items, and the type.
+        '''
         self.name = name
         self.sub_items = sub_items
         self.type = type
@@ -31,17 +35,29 @@ class NautilusMenu:
 
 # Methods to create action code
     def append_item(self, menu: str, item: str):
+        '''
+        Creates a necssary body_command.
+        '''
         return "{}.append_item({})".format(menu, item)
 
     def set_submenu(self, item: str, menu: str):
+        '''
+        Creates a necssary body_command.
+        '''
         return '{}.set_submenu({})'.format(item, menu)
 
     def connect(self, item: str, func: str):
+        '''
+        Creates a necssary body_command.
+        '''
         return '{}.connect("activate", {}, files)'.format(item, func)
 
 # Methods to create variable declarations
 
     def generate_menu(self):
+        '''
+        Generates a nautilus menu variable.
+        '''
         base_menu = ExistingCode.SUB_MENU.value
         base_menu = base_menu.format(self.counter)
         self.counter += 1
@@ -49,6 +65,9 @@ class NautilusMenu:
         return Variable(base_menu.split(' = ')[0], base_menu)
 
     def generate_item(self, name: str):
+        '''
+        Generates a nautilus command variable.
+        '''
         base_command = ExistingCode.MENU_ITEM.value
         formatted_item = base_command.format(self.counter, name, name, '', '')
         self.counter += 1
@@ -56,6 +75,9 @@ class NautilusMenu:
         return Variable(formatted_item.split(' = ')[0], formatted_item)
 
     def generate_python_func(self, class_origin: str, class_func: str):
+        '''
+        Generates a command attached to a python function
+        '''
         func_name = 'method_handler{}'.format(self.counter)
         created_func = ExistingCode.METHOD_HANDLER_TEMPLATE.value.format(
             func_name, class_origin, class_func, 'filenames')
@@ -65,6 +87,9 @@ class NautilusMenu:
         return Variable(f'self.{func_name}', created_func)
 
     def generate_command_func(self, command: str):
+        '''
+        Generates a command attached to a python function
+        '''
         func_name = 'method_handler{}'.format(self.counter)
         created_func = ExistingCode.COMMAND_HANDLER_TEMPLATE.value.format(
             func_name, command)
@@ -77,6 +102,9 @@ class NautilusMenu:
 # Other misc methods to help out
 
     def get_next_item(self):
+        '''
+        Very niche, required in other methods.
+        '''
         val = self.generate_item('')
         self.counter -= 1
 
@@ -86,6 +114,9 @@ class NautilusMenu:
 # Building the script body
 
     def build_script_body(self, name: str, items: list):
+        '''
+        Builds the body commands of the script.
+        '''
         top_item = self.generate_item(name)
         top_menu = self.generate_menu()
         submenu_com = self.set_submenu(top_item.name, top_menu.name)
@@ -126,6 +157,9 @@ class NautilusMenu:
                 self.commands.append(formatted_command)
 
     def build_script(self):
+        '''
+        Finishes and returns the full code.
+        '''
         self.build_script_body(self.name, self.sub_items)
         self.commands.append('return menuitem0,')
         full_code = CodeBuilder(
@@ -134,12 +168,18 @@ class NautilusMenu:
         return full_code
 
     def create_path(self, path: str, dir: str):
+        '''
+        Creates a path to directory. Creates all sub-directories
+        '''
         new_dir = os.path.join(path, dir)
         if not os.path.exists(new_dir):
             os.makedirs(new_dir)
         return new_dir
 
     def compile(self):
+        '''
+        Creates the code, creates a file, and moves it to the correct location.
+        '''
         code = self.build_script()
         save_loc = os.path.join(os.path.expanduser('~'), '.local/share/')
         print(save_loc)

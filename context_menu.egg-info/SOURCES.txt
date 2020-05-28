@@ -10,6 +10,10 @@ context_menu/linux/__init__.py
 context_menu/linux/code_builder.py
 context_menu/linux/code_preset.py
 context_menu/linux/linux_menus.py
+context_menu/tests/__init__.py
+context_menu/tests/test_linux.py
+context_menu/tests/test_menus.py
+context_menu/tests/test_windows.py
 context_menu/windows/__init__.py
 context_menu/windows/advanced_reg_config.py
 context_menu/windows/registry_shortcuts.py

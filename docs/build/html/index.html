@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to context_menu’s documentation! &mdash; context_menu 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="context_menu" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> context_menu
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">context_menu</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Windows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="context_menu.windows.html">context_menu.windows package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Linux</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="context_menu.linux.html">context_menu.linux package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">context_menu</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to context_menu’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-context-menu-s-documentation">
+<h1>Welcome to context_menu’s documentation!<a class="headerlink" href="#welcome-to-context-menu-s-documentation" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>The most important information is on how <strong>menus.py</strong> works. Basic usage is as follows:</p>
+<ol class="arabic simple">
+<li><p>Import the <strong>ContextCommand</strong> and <strong>ContextMenu</strong> Class from menus.py</p></li>
+<li><p>Create your menu and add sub_items using the <strong>add_items()</strong> command</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>You can nest this functionality (see example below)</p></li>
+<li><p>For commands, either pass a command in a string or a function without the “()”</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Compile the model.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">foo2</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;foo2&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+    <span class="nb">input</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">foo3</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;foo3&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+    <span class="nb">input</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">context_menu</span> <span class="kn">import</span> <span class="n">menus</span>
+
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">menus</span><span class="o">.</span><span class="n">ContextMenu</span><span class="p">(</span><span class="s1">&#39;Foo menu&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;DIRECTORY_BACKGROUND&#39;</span><span class="p">)</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">add_items</span><span class="p">([</span>
+        <span class="n">menus</span><span class="o">.</span><span class="n">ContextCommand</span><span class="p">(</span><span class="s1">&#39;Foo One&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;echo hello &gt; example.txt&#39;</span><span class="p">),</span>
+        <span class="n">menus</span><span class="o">.</span><span class="n">ContextCommand</span><span class="p">(</span><span class="s1">&#39;Foo Two&#39;</span><span class="p">,</span> <span class="n">python</span><span class="o">=</span><span class="n">foo2</span><span class="p">),</span>
+        <span class="n">menus</span><span class="o">.</span><span class="n">ContextCommand</span><span class="p">(</span><span class="s1">&#39;Foo Three&#39;</span><span class="p">,</span> <span class="n">python</span><span class="o">=</span><span class="n">foo3</span><span class="p">)</span>
+    <span class="p">])</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>A <strong>ContextCommand</strong> is the item that is selectable on a menu, so the entry that actually runs a command. A <strong>ContextMenu</strong> simply holds the commands. Menus can be nested, so you can create subsubsubmenus if you really wanted to.
+Simply add them to a menu as you would a command. See examples for more information.</p>
+<p>You’ll probably find some useful methods in the windows sub package, such as deleting keys and all their subkeys from the registry.</p>
+</div></blockquote>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">context_menu</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.html">context_menu package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Windows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="context_menu.windows.html">context_menu.windows package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.windows.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.windows.html#module-context_menu.windows.advanced_reg_config">context_menu.windows.advanced_reg_config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.windows.html#module-context_menu.windows.registry_shortcuts">context_menu.windows.registry_shortcuts module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.windows.html#module-context_menu.windows.windows_menus">context_menu.windows.windows_menus module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.windows.html#module-context_menu.windows">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Linux</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="context_menu.linux.html">context_menu.linux package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.linux.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.linux.html#module-context_menu.linux.code_builder">context_menu.linux.code_builder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.linux.html#module-context_menu.linux.code_preset">context_menu.linux.code_preset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.linux.html#module-context_menu.linux.linux_menus">context_menu.linux.linux_menus module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_menu.linux.html#module-context_menu.linux">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules.html" class="btn btn-neutral float-right" title="context_menu" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Salvador Aleguas
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
