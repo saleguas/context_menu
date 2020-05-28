@@ -1,9 +1,17 @@
 language: python            # this works for Linux but is an error on macOS or Windows
 jobs:
   include:
+    # Linux Jobs
+    - name: "Python 3.6.0 on Xenial Linux"
+      python: 3.6
+
+    - name: "Python 3.7.0 on Xenial Linux"
+      python: 3.7
+
     - name: "Python 3.8.0 on Xenial Linux"
       python: 3.8
-    # Windows jobs first
+
+    # Windows jobs
     - name: "Python 3.6.0 on Windows"
       os: windows           # Windows 10.0.17134 N/A Build 17134
       language: shell       # 'language: python' is an error on Travis CI Windows
@@ -34,7 +42,6 @@ jobs:
         - cd context_menu/tests
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
 
-      # Linux jobs
 
 
 
