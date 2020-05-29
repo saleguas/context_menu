@@ -41,20 +41,7 @@ Welcome to context_menu's documentation!
   You'll probably find some useful methods in the windows sub package, such as deleting keys and all their subkeys from the registry.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents:
 
    modules
-
-.. toctree::
-    :maxdepth: 3
-    :caption: Windows
-
-    context_menu.windows
-
-
-.. toctree::
-    :maxdepth: 3
-    :caption: Linux
-
-    context_menu.linux

@@ -1,8 +1,124 @@
-from code_preset import ExistingCode
-from code_builder import CodeBuilder
+
+# imports -------------------------------------------------
+import os
+from enum import Enum
+
+# code_preset.py -------------------------------------
+
+class ExistingCode(Enum):
+    '''
+    Preset values important for metaprogramming.
+    '''
+
+    CODE_HEAD = '''
+import gi
+import sys
 import os
 
+gi.require_version('Nautilus', '3.0')
 
+from gi.repository import Nautilus, GObject
+
+# -------------------------------------------- #
+
+try:
+\tfrom urllib import unquote
+except ImportError:
+\tfrom urllib.parse import unquote
+    '''
+
+    CLASS_TEMPLATE = '''
+class ExampleMenuProvider(GObject.GObject, Nautilus.MenuProvider):
+\tdef __init__(self):
+\t\tpass
+'''
+
+    METHOD_HANDLER_TEMPLATE = '''
+\tdef {}(self, menu, files):
+\t\tfilenames = [unquote(subFile.get_uri()[7:]) for subFile in files]
+\t\t{}.{}({})
+
+'''
+
+    COMMAND_HANDLER_TEMPLATE = '''
+\tdef {}(self, menu, files):
+\t\tos.system('{}')
+
+'''
+
+    FILE_ITEMS = '\tdef get_file_items(self, window, files):'
+    BACKGROUND_ITEMS = '\tdef get_background_items(self, window, files):'
+    SUB_MENU = 'submenu{} = Nautilus.Menu()'
+    MENU_ITEM = 'menuitem{} = Nautilus.MenuItem(name = "ExampleMenuProvider::{}", label="{}", tip = "{}", icon = "{}")'
+
+# code_builder.py ----------------------------------
+
+
+class CodeBuilder:
+    '''
+    The CodeBuilder class is used for generating the final python file for the Linux menus.
+    '''
+
+    def __init__(self, body_commands: list, script_dirs: list, funcs: list, imports: list, type: str):
+        '''
+        Pass the list of body_commands, the directories of all the scripts, the
+        list of the function names, the list of the imports, and the type.
+        '''
+        self.body_commands = body_commands
+        self.script_dirs = list(set(script_dirs))
+        self.funcs = funcs
+        self.imports = list(set(imports))
+        self.type = type.upper()
+
+    def build_script_dirs(self):
+        '''
+        Creates the header of necessary path configurations.
+
+        Adds all the 'sys.path.appends' in order to immport the classes and functions.
+
+        Handled automatically by compile.
+        '''
+        compiled_dirs = [f'sys.path.append("{x}")' for x in self.script_dirs]
+        return '\n'.join(compiled_dirs)
+
+    def build_imports(self):
+        '''
+        Creates the header of necessary imports.
+
+        Handled automatically by compile.
+        '''
+        compiled_imports = [f'import {x}' for x in self.imports]
+        return '\n'.join(compiled_imports)
+
+    def compile(self):
+        '''
+        Creates the code file.
+        '''
+        code_head = ExistingCode.CODE_HEAD.value
+        script_dirs_code = self.build_script_dirs()
+        imports_code = self.build_imports()
+        class_dec = ExistingCode.CLASS_TEMPLATE.value
+        class_funcs = '\n\n'.join(self.funcs)
+        class_type = ExistingCode.FILE_ITEMS.value
+        if self.type in ['DIRECTORY_BACKGROUND', 'DESKTOP_BACKGROUND']:
+            class_type = ExistingCode.BACKGROUND_ITEMS.value
+        class_body = '\n'.join(map(lambda x: '\t\t' + x, self.body_commands))
+
+        code_skeleton = '''
+{}
+{}
+{}
+{}
+{}
+{}
+{}
+    '''.format(code_head, script_dirs_code, imports_code, class_dec, class_funcs, class_type, class_body)
+
+        return code_skeleton
+
+
+
+# code_builder.py ----------------------------------
 
 # Not necessary, but helps simplify the code.
 class Variable:
@@ -197,4 +313,3 @@ class NautilusMenu:
 #               command1
 #         command2
 #     command3
-#

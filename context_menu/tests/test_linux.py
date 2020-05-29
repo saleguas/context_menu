@@ -1,6 +1,6 @@
 from context_menu import menus
 
-from context_menu.linux import linux_menus
+from context_menu import linux_menus
 
 
 fc = menus.FastCommand('TestCommand', type='FILES',
@@ -29,6 +29,3 @@ def test_build_script_body():
     print()
     print(valid_commands)
     assert nm.commands == valid_commands
-
-
-test_build_script_body()

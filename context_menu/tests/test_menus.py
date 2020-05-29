@@ -8,11 +8,6 @@ def get_last_path_item(path):
     return os.path.basename(os.path.normpath(path))
 
 
-def test_check_paths():
-    valid_paths = list(filter(lambda x: get_last_path_item(x)
-                              in ['windows', 'linux'], sys.path))
-    assert len(valid_paths) == 2
-
 
 def test_method_info():
 

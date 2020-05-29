@@ -1,7 +1,6 @@
 import sys
 from context_menu import menus
-from context_menu.windows import windows_menus
-from context_menu.windows import advanced_reg_config as arc
+from context_menu import windows_menus
 
 # ------------------------------------------------------------------------------
 # Required files for setup
@@ -55,7 +54,7 @@ def test_file_select_command():
     func_name, func_file_name, func_dir_path = cm.sub_items[1].get_method_info(
     )
 
-    reg_command = arc.create_file_select_command(
+    reg_command = windows_menus.create_file_select_command(
         func_name, func_file_name, func_dir_path).replace('\\', '/')
     valid_command = f'''"{sys.executable}" -c "import sys; sys.path.insert(0, '{func_dir_path[2:]}'); import test_windows; test_windows.foo3([' '.join(sys.argv[1:]) ])" "%1""'''.replace(
         '\\', '/')

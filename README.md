@@ -123,8 +123,24 @@ You can use the [{MENU}.add_items{ITEMS}]() function to add these elements toget
 
 Check out the [examples folder](examples) for more complicated examples.
 
+# Types
+
+There are different locations where a context menu can fire (if you right click on a folder you'll get different options then if you right click on a file).  Here's a table that breaks these types down:
+
+| Name                 | Location                                     | Action                                   |
+|----------------------|----------------------------------------------|------------------------------------------|
+| FILES                | HKEY_CLASSES_ROOT*\shell\                    | Opens on a file                          |
+| DIRECTORY            | HKEY_CLASSES_ROOT\Directory\shell            | Opens on a directory                     |
+| DIRECTORY_BACKGROUND | HKEY_CLASSES_ROOT\Directory\Background\shell | Opens on the background of the Directory |
+| DESKTOP_BACKGROUND   | HKEY_CLASSES_ROOT\DesktopBackground\Shell    | Opens on the background of the Desktop   |
+| DRIVE                | HKEY_CLASSES_ROOT\Drive\shell                | Opens on the drives(think USBs)          |
+
+when specifying the `type` variable in a menu or command, use the `name` parameter to decide where it will activate.
+
 # Final Words
 
-You can check out the entire [documentation here].
+You can check out the entire [documentation here]().
 
-I'm extremely pleased with how this project turned out. I can't count how many times I wanted to give up. All the interfaces I had to interact with almost zero documentation ([nautilus-python](https://wiki.gnome.org/Projects/NautilusPython) actually had no documentation, but I'm extremely thankful the library existed in the first place). I wanted to contribute and open up the possibility of using context menus in development to more people, creating this library and [documentation for windows](https://medium.com/analytics-vidhya/creating-cascading-context-menus-with-the-windows-10-registry-f1cf3cd8398f).
+I'm extremely pleased with how this project turned out. I can't count how many times I wanted to give up. All the interfaces I had to interact with almost zero documentation ([nautilus-python](https://wiki.gnome.org/Projects/NautilusPython) actually had no documentation, but I'm extremely thankful the library existed in the first place).
+
+ I wanted to contribute and open up the possibility of using context menus in development to more people, creating this library and [documentation for windows](https://medium.com/analytics-vidhya/creating-cascading-context-menus-with-the-windows-10-registry-f1cf3cd8398f).

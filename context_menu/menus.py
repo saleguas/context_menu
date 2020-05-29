@@ -4,16 +4,12 @@ import os
 import platform
 
 # Need to append all the python subdirectories because Python doesn't recognize them
-file_dir = os.path.dirname(__file__)
-sys.path.append(file_dir)
-sys.path.append(os.path.join(file_dir, 'windows'))
-sys.path.append(os.path.join(file_dir, 'linux'))
 
 # Import the necessary library depending on the OS
 if platform.system() == 'Linux':
-    from linux import linux_menus
+    from context_menu import linux_menus
 if platform.system() == 'Windows':
-    from windows import windows_menus
+    from context_menu import windows_menus
 
 
 class ContextMenu:
