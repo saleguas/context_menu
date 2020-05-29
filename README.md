@@ -5,8 +5,13 @@
 
 ---
 
-
-![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue)
+<center>
+  <img src='https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master'/>
+  <img src='https://img.shields.io/readthedocs/context_menu'/>
+  <img src='https://img.shields.io/badge/pip-context__menu-blue'/>
+  <img src='https://img.shields.io/pypi/pyversions/context_menu'/>
+</center>
+<!-- ![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) ![python version](https://img.shields.io/pypi/pyversions/context_menu) -->
 
 ---
 
@@ -76,6 +81,34 @@ The [ContextMenu]() class expects a name, and the activation type if it is the r
 
 The [ContextCommand]() class expects a name, and either a python function, or a shell command, but not both. A ContextCommand is the selectable element of a context menu; you can click this part. Python functions can be passed to this method, regardless of their location. However, if the function is in the same file as the menu, you have to surround it with `if __name__ == '__main__':`
 
+Any command passed (as a string) will be directly ran from the shell.
+
+```Python
+def foo2(filenames):
+    print('foo2')
+    print(filenames)
+    input()
+
+def foo3(filenames):
+    print('foo3')
+    print(filenames)
+    input()
+
+
+if __name__ == '__main__':
+    from context_menu import menus
+
+    cm = menus.ContextMenu('Foo menu', type='DIRECTORY_BACKGROUND')
+    cm.add_items([
+        menus.ContextCommand('Foo One', command='echo hello > example.txt'),
+        menus.ContextCommand('Foo Two', python=foo2),
+        menus.ContextCommand('Foo Three', python=foo3)
+    ])
+    cm.compile()
+
+```
+The [FastCommand]() class is an extension of the ContextMenu class and allows you to quickly create a single entry menu. It expects a name, type, and command/function.
+
 ```python
 def foo1(filenames):
     print(filenames)
@@ -88,10 +121,13 @@ if __name__ == '__main__':
     fc.compile()
 ```
 
-Any command passed (as a string) will be directly ran from the shell.
-
-The [FastCommand]() class is an extension of the ContextMenu class and allows you to quickly create a single entry menu. It expects a name, type, and command/function.
 
 You can use the [{MENU}.add_items{ITEMS}]() function to add these elements together. Menus can be added to menus, creating cascading context menus. You have to call [{MENU}.compile()]() in order to create the menu. Admin privileges are required on windows, as it modifies the Registry. The code will automatically prompt for Admin rights if it is not sufficiently elevated.
 
 Check out the [examples folder](examples) for more complicated examples.
+
+# Final Words
+
+You can check out the entire [documentation here].
+
+I'm extremely pleased with how this project turned out. I can't count how many times I wanted to give up. All the interfaces I had to interact with almost zero documentation ([nautilus-python](https://wiki.gnome.org/Projects/NautilusPython) actually had no documentation, but I'm extremely thankful the library existed in the first place). I wanted to contribute and open up the possibility of using context menus in development to more people, creating this library and [documentation for windows](https://medium.com/analytics-vidhya/creating-cascading-context-menus-with-the-windows-10-registry-f1cf3cd8398f).
