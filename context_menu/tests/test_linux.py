@@ -1,6 +1,10 @@
-from context_menu import menus
+import sys
+import os
+sys.path.append(os.path.abspath('..'))
 
-from context_menu import linux_menus
+import menus
+
+import linux_menus
 
 
 fc = menus.FastCommand('TestCommand', type='FILES',
