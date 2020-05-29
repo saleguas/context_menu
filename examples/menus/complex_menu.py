@@ -14,7 +14,7 @@ def foo3(filenames):
 if __name__ == '__main__':
     from context_menu import menus
 
-    cm = menus.ContextMenu('Foo menu', type='DIRECTORY_BACKGROUND')
+    cm = menus.ContextMenu('Foo menu', type='FILES')
     cm2 = menus.ContextMenu('Foo Menu 2')
     cm3 = menus.ContextMenu('Foo Menu 3')
     cm3.add_items([
