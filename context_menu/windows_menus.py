@@ -1,7 +1,11 @@
 # all imports ---------------
 import sys
 import os
-import winreg
+try:
+    import winreg
+except:
+    pass
+    # Required for tests
 import ctypes
 from enum import Enum
 
