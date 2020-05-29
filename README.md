@@ -1,14 +1,11 @@
-<h1 align='center'> context_menu </h1>
+# context_menu
 
-<p align='center'>A Python library to create and deploy cross-platform native context menus.</p>
+A Python library to create and deploy cross-platform native context menus.
 
 
 ---
 
-<p align='center'>
-  <img src='https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master'/><img src='https://img.shields.io/readthedocs/context_menu'/><img src='https://img.shields.io/badge/pip-context__menu-blue'/><img src='https://img.shields.io/pypi/pyversions/context_menu'/>
-</p>
-<!-- ![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) ![python version](https://img.shields.io/pypi/pyversions/context_menu) -->
+![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) ![python version](https://img.shields.io/pypi/pyversions/context_menu)
 
 ---
 
@@ -76,7 +73,18 @@ python -m pip install context_menu
 
 The [ContextMenu]() class expects a name, and the activation type if it is the root menu(the first menu). Only compile the root menu.
 
-The [ContextCommand]() class expects a name, and either a python function, or a shell command, but not both. A ContextCommand is the selectable element of a context menu; you can click this part. Python functions can be passed to this method, regardless of their location. However, if the function is in the same file as the menu, you have to surround it with `if __name__ == '__main__':`
+```Python
+ContextMenu(name: str, type: str = None)
+```
+
+
+The [ContextCommand]() class expects a name, and either a python function, or a shell command, but not both.
+
+```Python
+ContextCommand(name: str, command: str = None, python: function = None)
+```
+
+ A ContextCommand is the selectable element of a context menu (you can click this part). Python functions can be passed to this method, regardless of their location. However, if the function is in the same file as the menu, you have to surround it with `if __name__ == '__main__':`
 
 Any command passed (as a string) will be directly ran from the shell.
 
@@ -104,7 +112,13 @@ if __name__ == '__main__':
     cm.compile()
 
 ```
-The [FastCommand]() class is an extension of the ContextMenu class and allows you to quickly create a single entry menu. It expects a name, type, and command/function.
+The [FastCommand]() class is an extension of the ContextMenu class and allows you to quickly create a single entry menu.
+
+```python
+FastCommand(name: str, type: str, command: str = None, python: function = None)
+```
+
+It expects a name, type, and command/function.
 
 ```python
 def foo1(filenames):
@@ -137,10 +151,10 @@ There are different locations where a context menu can fire (if you right click 
 
 when specifying the `type` variable in a menu or command, use the `name` parameter to decide where it will activate.
 
-# Final Words
+# Important notes
 
-You can check out the entire [documentation here]().
+* The code can sometimes be really weird when it comes to admin rights on Windows. The `compile()` method will automatically prompt for admin rights if required, but this can cause issues sometimes.
 
-I'm extremely pleased with how this project turned out. I can't count how many times I wanted to give up. All the interfaces I had to interact with almost zero documentation ([nautilus-python](https://wiki.gnome.org/Projects/NautilusPython) actually had no documentation, but I'm extremely thankful the library existed in the first place).
+* Almost all of the errors I've encountered in testing were when the code and the functions were in the same file. You should make a separate file for the code or surround it with 'with `if __name__ == '__main__':`.
 
- I wanted to contribute and open up the possibility of using context menus in development to more people, creating this library and [documentation for windows](https://medium.com/analytics-vidhya/creating-cascading-context-menus-with-the-windows-10-registry-f1cf3cd8398f).
+Feel free to check out a [file sorter](https://github.com/saleguas/freshen) I made that implements very complex usage of this library.
