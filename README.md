@@ -1,16 +1,13 @@
-# <center> context_menu </center>
+<h1 align='center'> context_menu </h1>
 
-<Center> A Python library to create and deploy cross-platform native context menus.</center>
+<p align='center'>A Python library to create and deploy cross-platform native context menus.</p>
 
 
 ---
 
-<center>
-  <img src='https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master'/>
-  <img src='https://img.shields.io/readthedocs/context_menu'/>
-  <img src='https://img.shields.io/badge/pip-context__menu-blue'/>
-  <img src='https://img.shields.io/pypi/pyversions/context_menu'/>
-</center>
+<p align='center'>
+  <img src='https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master'/><img src='https://img.shields.io/readthedocs/context_menu'/><img src='https://img.shields.io/badge/pip-context__menu-blue'/><img src='https://img.shields.io/pypi/pyversions/context_menu'/>
+</p>
 <!-- ![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) ![python version](https://img.shields.io/pypi/pyversions/context_menu) -->
 
 ---
