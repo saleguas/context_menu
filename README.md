@@ -139,7 +139,7 @@ Check out the [examples folder](examples) for more complicated examples.
 
 # Types
 
-There are different locations where a context menu can fire (if you right click on a folder you'll get different options then if you right click on a file).  Here's a table that breaks these types down:
+There are different locations where a context menu can fire (if you right click on a folder you'll get different options then if you right click on a file).  The `type` variable controls this behavior in the library, and you can reference this table to determine the `type`:
 
 | Name                 | Location                                     | Action                                   |
 |----------------------|----------------------------------------------|------------------------------------------|
@@ -149,7 +149,6 @@ There are different locations where a context menu can fire (if you right click 
 | DESKTOP_BACKGROUND   | HKEY_CLASSES_ROOT\DesktopBackground\Shell    | Opens on the background of the Desktop   |
 | DRIVE                | HKEY_CLASSES_ROOT\Drive\shell                | Opens on the drives(think USBs)          |
 
-when specifying the `type` variable in a menu or command, use the `name` parameter to decide where it will activate.
 
 # Important notes
 

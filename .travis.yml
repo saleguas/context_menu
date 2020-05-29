@@ -4,12 +4,18 @@ jobs:
     # Linux Jobs
     - name: "Python 3.6.0 on Xenial Linux"
       python: 3.6
+      before_install:
+        - pip3 install context_menu
 
     - name: "Python 3.7.0 on Xenial Linux"
       python: 3.7
+      before_install:
+        - pip3 install context_menu
 
     - name: "Python 3.8.0 on Xenial Linux"
       python: 3.8
+      before_install:
+        - pip3 install context_menu
 
     # Windows jobs
     - name: "Python 3.6.0 on Windows"
@@ -19,6 +25,7 @@ jobs:
         - choco install python --version 3.6.0
         - python -m pip install --upgrade pip
         - pip3 install pytest
+        - pip3 install context_menu
         - cd context_menu/tests
       env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
 
@@ -29,6 +36,7 @@ jobs:
         - choco install python --version 3.7.0
         - python -m pip install --upgrade pip
         - pip3 install pytest
+        - pip3 install context_menu
         - cd context_menu/tests
       env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 
@@ -39,6 +47,7 @@ jobs:
         - choco install python --version 3.8.0
         - python -m pip install --upgrade pip
         - pip3 install pytest
+        - pip3 install context_menu
         - cd context_menu/tests
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
 
