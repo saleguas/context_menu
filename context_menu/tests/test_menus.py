@@ -1,9 +1,8 @@
 import os
 import sys
 
-sys.path.append(os.path.abspath('..'))
+from context_menu import menus
 
-import menus
 
 def get_last_path_item(path):
     return os.path.basename(os.path.normpath(path))
