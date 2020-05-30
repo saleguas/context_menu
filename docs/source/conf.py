@@ -19,6 +19,8 @@ file_dir = os.path.abspath('../../')
 sys.path.append(file_dir)
 
 
+master_doc = 'index'
+
 # -- Project information -----------------------------------------------------
 
 project = 'context_menu'
