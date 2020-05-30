@@ -52,6 +52,7 @@ class ContextCommand:
 
      A command is an executable entry in a context-menu, where menus hold other commands.
     '''
+
     def __init__(self, name: str, command: str = None, python: 'function' = None):
         '''
         Do not specify both 'python' and 'command', either pass a python function or a command but not both.

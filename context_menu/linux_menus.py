@@ -5,6 +5,7 @@ from enum import Enum
 
 # code_preset.py -------------------------------------
 
+
 class ExistingCode(Enum):
     '''
     Preset values important for metaprogramming.
@@ -117,7 +118,6 @@ class CodeBuilder:
         return code_skeleton
 
 
-
 # code_builder.py ----------------------------------
 
 # Not necessary, but helps simplify the code.
@@ -217,6 +217,7 @@ class NautilusMenu:
 
 # Other misc methods to help out
 
+
     def get_next_item(self):
         '''
         Very niche, required in other methods.
@@ -228,6 +229,7 @@ class NautilusMenu:
 
 
 # Building the script body
+
 
     def build_script_body(self, name: str, items: list):
         '''

@@ -21,7 +21,6 @@ try:
         except:
             return False
 
-
     def run_admin(params=sys.argv[0], force=False):
         '''
         If the python instance does not have admin priviledges, it stops the current execution and runs the program as admin.
@@ -35,13 +34,11 @@ try:
 
     # ------------------------------------------------------------------
 
-
     def create_key(path: str, hive=winreg.HKEY_CLASSES_ROOT):
         '''
         Creates a key at the desired path.
         '''
         winreg.CreateKey(hive, path)
-
 
     def set_key_value(key_path: str, subkey_name: str, value: 'Value', hive=winreg.HKEY_CLASSES_ROOT):
         '''
@@ -52,7 +49,6 @@ try:
                                       winreg.KEY_WRITE)
         winreg.SetValueEx(registry_key, subkey_name, 0, winreg.REG_SZ, value)
         winreg.CloseKey(registry_key)
-
 
     def list_keys(path: str, hive=winreg.HKEY_CLASSES_ROOT) -> 'List of keys':
         '''
@@ -68,7 +64,6 @@ try:
             keys.append(subkey)
 
         return keys
-
 
     def delete_key(path: str, hive=winreg.HKEY_CLASSES_ROOT):
         '''
@@ -161,9 +156,7 @@ def create_directory_background_command(func_name: str, func_file_name: str, fun
     return full_command
 
 
-
 # windows_menus.py ----------------------------------------------------------------------------------------
-
 
 
 # Used to create a Registry entry
