@@ -82,7 +82,7 @@ The [ContextCommand](https://context-menu.readthedocs.io/en/latest/context_menu.
 ContextCommand(name: str, command: str = None, python: function = None)
 ```
 
-A ContextCommand is the selectable element of a context menu (you can click this part). Python functions can be passed to this method, regardless of their location. However, if the function is in the same file as the menu, you have to surround it with `if __name__ == '__main__':`
+A ContextCommand is the selectable element of a context menu (you can click this part). Python functions can be passed to this method, regardless of their location. *However, the function must accept only one parameter `filenames`, which is a list of paths*, and if the function is in the same file as the menu, you have to surround it with `if __name__ == '__main__':`
 
 Any command passed (as a string) will be directly ran from the shell.
 
