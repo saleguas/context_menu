@@ -150,7 +150,7 @@ There are different locations where a context menu can fire (if you right click 
 
 -   The code can sometimes be really weird when it comes to admin rights on Windows. The `compile()` method will automatically prompt for admin rights if required, but this can cause issues sometimes.
 
--   Almost all of the errors I've encountered in testing were when the code and the functions were in the same file. You should make a separate file for the code or surround it with 'with `if __name__ == '__main__':`.
+-   Almost all of the errors I've encountered in testing were when the code and the functions were in the same file. You should make a separate file for the code or surround it with `if __name__ == '__main__':`.
 
 Feel free to check out a [file sorter](https://github.com/saleguas/freshen) I made that implements very complex usage of this library.
 
