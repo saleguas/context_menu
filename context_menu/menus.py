@@ -118,3 +118,22 @@ class FastCommand:
         if platform.system() == 'Windows':
             windows_menus.FastRegistryCommand(
                 self.name, self.type, self.command, self.python).compile()
+
+try:
+    def removeMenu(name: str, type: str):
+        '''
+        Removes a menu/command entry from a context menu.
+
+        Requires the name of the menu and type of the menu
+        '''
+
+        if platform.system() == 'Linux':
+            linux_menus.remove_linux_menu(name)
+        if platform.system() == 'Windows':
+            windows_menus.remove_windows_menu(name, type)
+
+
+except Exception as e:
+    # For testing
+    print(e)
+    pass

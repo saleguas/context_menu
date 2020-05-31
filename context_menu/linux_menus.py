@@ -308,10 +308,16 @@ class NautilusMenu:
         py_file.write(code)
         py_file.close()
 
+# Testing section...
 
-# top_command/
-#     menu0/
-#         menu1/
-#               command1
-#         command2
-#     command3
+try:
+    def remove_linux_menu(name):
+        save_loc = os.path.join(os.path.expanduser('~'), '.local/share/nautilus-python/extensions', name)
+        try:
+            os.remove(save_loc + '.py')
+            os.remove(save_loc + '.pyc')
+        except Exception as e:
+            print(e)
+
+except:
+    pass

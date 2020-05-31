@@ -2,3 +2,4 @@
 build
 dist
 context_menu.egg-info
+__pycache__

@@ -132,7 +132,22 @@ if __name__ == '__main__':
 
 You can use the [{MENU}.add_items{ITEMS}](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu.add_items) function to add these elements together. Menus can be added to menus, creating cascading context menus. You have to call [{MENU}.compile()](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu.compile) in order to create the menu. Admin privileges are required on windows, as it modifies the Registry. The code will automatically prompt for Admin rights if it is not sufficiently elevated.
 
+
+You can remove a menu easily as well. Simply call the ['menus.removeMenu()']() method.
+
+```python
+removeMenu(name: str, type: str)
+```
+
+For example, if I wanted to remove the menu 'Foo Menu' that activated on type 'FILES':
+```python
+from context_menu import menus
+
+menus.removeMenu('Foo Menu', 'FILES')
+```
+---
 Check out the [examples folder](examples) for more complicated examples.
+
 
 # Types
 
