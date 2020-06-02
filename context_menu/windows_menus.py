@@ -1,5 +1,4 @@
 # all imports ---------------
-import sys
 import os
 import ctypes
 from enum import Enum
