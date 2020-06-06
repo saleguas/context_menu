@@ -53,9 +53,15 @@ class ContextCommand:
     The general command class.
 
      A command is an executable entry in a context-menu, where menus hold other commands.
+
+     Name = Name of the command
+     Command = command to be ran from the shell
+     python = function to be ran
+     params = any other parameters to be passed
+     command_vars = to help with the command
     '''
 
-    def __init__(self, name: str, command: str = None, python: 'function' = None):
+    def __init__(self, name: str, command: str = None, python: 'function' = None, params: str ='', command_vars: list = None):
         '''
         Do not specify both 'python' and 'command', either pass a python function or a command but not both.
         '''
@@ -63,6 +69,8 @@ class ContextCommand:
         self.command = command
         self.isMenu = False
         self.python = python
+        self.params = params
+        self.command_vars = command_vars
 
         if command != None and python != None:
             raise ValueError('both command and python cannot be defined')
@@ -95,11 +103,13 @@ class FastCommand:
     Extremely similar methods to other classes, only slightly modified. View the documentation of the above classes for info on these methods.
     '''
 
-    def __init__(self, name: str, type: str, command: str = None, python: 'function' = None):
+    def __init__(self, name: str, type: str, command: str = None, python: 'function' = None, params: str = '', command_vars: list = None):
         self.name = name
         self.type = type
         self.command = command
         self.python = python
+        self.params = params
+        self.command_vars = command_vars
 
         if command != None and python != None:
             raise ValueError('both command and python cannot be defined')
@@ -116,10 +126,10 @@ class FastCommand:
     def compile(self):
         if platform.system() == 'Linux':
             linux_menus.NautilusMenu(self.name, [ContextCommand(
-                self.name, command=self.command, python=self.python)], self.type).compile()
+                self.name, command=self.command, python=self.python, params=self.params, command_vars=self.command_vars)], self.type).compile()
         if platform.system() == 'Windows':
             windows_menus.FastRegistryCommand(
-                self.name, self.type, self.command, self.python).compile()
+                self.name, self.type, self.command, self.python, self.params, self.command_vars).compile()
 
 try:
     def removeMenu(name: str, type: str):

@@ -36,13 +36,14 @@ class ExampleMenuProvider(GObject.GObject, Nautilus.MenuProvider):
     METHOD_HANDLER_TEMPLATE = '''
 \tdef {}(self, menu, files):
 \t\tfilenames = [unquote(subFile.get_uri()[7:]) for subFile in files]
-\t\t{}.{}({})
+\t\t{}.{}({}, "{}")
 
 '''
 
     COMMAND_HANDLER_TEMPLATE = '''
 \tdef {}(self, menu, files):
-\t\tos.system('{}')
+\t\tfilepath = [unquote(subFile.get_uri()[7:]) for subFile in files][0]
+\t\tos.system('{}'{})
 
 '''
 
@@ -117,6 +118,21 @@ class CodeBuilder:
         return code_skeleton
 
 
+COMMAND_VARS = {
+    'FILENAME' : "filepath",
+    'DIR': "os.getcwd()",
+    'DIRECTORY': "os.getcwd()",
+    'PYTHONLOC' : 'sys.executable'
+}
+
+def command_var_format(item: str):
+    '''
+    Converts a python string to a value for a command
+
+    '''
+    return COMMAND_VARS[item.upper()]
+
+
 # code_builder.py ----------------------------------
 
 # Not necessary, but helps simplify the code.
@@ -189,13 +205,13 @@ class NautilusMenu:
 
         return Variable(formatted_item.split(' = ')[0], formatted_item)
 
-    def generate_python_func(self, class_origin: str, class_func: str):
+    def generate_python_func(self, class_origin: str, class_func: str, params: str):
         '''
         Generates a command attached to a python function
         '''
         func_name = 'method_handler{}'.format(self.counter)
         created_func = ExistingCode.METHOD_HANDLER_TEMPLATE.value.format(
-            func_name, class_origin, class_func, 'filenames')
+            func_name, class_origin, class_func, 'filenames', params)
 
         self.counter += 1
 
@@ -207,11 +223,28 @@ class NautilusMenu:
         '''
         func_name = 'method_handler{}'.format(self.counter)
         created_func = ExistingCode.COMMAND_HANDLER_TEMPLATE.value.format(
-            func_name, command)
+            func_name, command, '')
 
         self.counter += 1
 
         return Variable(f'self.{func_name}', created_func)
+
+    def generate_mod_command_func(self, command: str, command_vars: list):
+        '''
+        Generates a command attached to a python function that allows special variables.
+        '''
+        new_command = command.replace('?',  '{}')
+        modified_vars = [command_var_format(item) for item in command_vars]
+        final_str = ', '.join(modified_vars)
+        func_name = 'method_handler{}'.format(self.counter)
+        replace_func = """.format({})""".format(final_str)
+        created_func = ExistingCode.COMMAND_HANDLER_TEMPLATE.value.format(
+            func_name, new_command, replace_func)
+
+        self.counter += 1
+
+        return Variable(f'self.{func_name}', created_func)
+
 
 
 # Other misc methods to help out
@@ -248,18 +281,24 @@ class NautilusMenu:
                 self.build_script_body(item.name, item.sub_items)
                 self.commands.append(subsubmenu_con)
             else:
+                # if the item is a command
                 formatted_command = self.generate_item(item.name)
                 self.commands.append(formatted_command.code)
 
                 connected_func = None
 
                 if item.python != None:
+                    # if there is a python function
                     item_info = item.get_method_info()
                     connected_func = self.generate_python_func(
-                        item_info[1], item_info[0])
+                        item_info[1], item_info[0], item.params)
                     self.script_dirs.append(item_info[2])
                     self.imports.append(item_info[1])
+                elif item.command_vars != None:
+                    # if the command requries parameters
+                    connected_func = self.generate_mod_command_func(item.command, item.command_vars)
                 else:
+                    # if the command is simply normal
                     connected_func = self.generate_command_func(item.command)
                     # connected_func = self.generate_func('os', 'system')
 

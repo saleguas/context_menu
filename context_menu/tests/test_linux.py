@@ -13,6 +13,7 @@ def test_command_func():
     lm = nm.generate_command_func(fc.command)
     valid_func = '''
 \tdef method_handler0(self, menu, files):
+\t\tfilepath = [unquote(subFile.get_uri()[7:]) for subFile in files][0]
 \t\tos.system('echo hello > example.txt')\n
 '''
     assert valid_func == lm.code

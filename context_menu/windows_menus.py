@@ -1,6 +1,7 @@
 # all imports ---------------
 import os
 import ctypes
+import sys
 from enum import Enum
 
 
@@ -98,6 +99,12 @@ COMMAND_PRESETS = {
     'pythonw': os.path.join(os.path.dirname(sys.executable), 'pythonw.exe')
 }
 
+COMMAND_VARS = {
+    'FILENAME' : "' '.join(sys.argv[1:]) ",
+    'DIR': 'os.getcwd()',
+    'DIRECTORY': 'os.getcwd()',
+    'PYTHONLOC' : 'sys.executable'
+}
 
 def context_registry_format(item: str) -> 'registry path to the desired type':
     '''
@@ -119,8 +126,14 @@ def command_preset_format(item: str) -> 'Path to desired python type':
     '''
     return COMMAND_PRESETS[item.lower()]
 
+def command_var_format(item: str):
+    '''
+    Converts a python string to a value for a command
 
-def create_file_select_command(func_name: str, func_file_name: str, func_dir_path: str) -> 'Registry valid string to call python function':
+    '''
+    return COMMAND_VARS[item.upper()]
+
+def create_file_select_command(func_name: str, func_file_name: str, func_dir_path: str, params: str) -> 'Registry valid string to call python function':
     '''
     Creates a registry valid command to link a context menu entry to a funtion, specifically for file selection(FILES, DIRECTORY, DRIVE).
 
@@ -131,14 +144,14 @@ def create_file_select_command(func_name: str, func_file_name: str, func_dir_pat
         '\\', '/')
     file_section = f'import {func_file_name}'
     dir_path = """' '.join(sys.argv[1:]) """
-    func_section = f'{func_file_name}.{func_name}([{dir_path}])'
+    func_section = f'''{func_file_name}.{func_name}([{dir_path}],'{params}')'''
     python_portion = f'''"{python_loc}" -c "{sys_section}; {file_section}; {func_section}"'''
     full_command = '''{} \"%1\""'''.format(python_portion)
 
     return full_command
 
 
-def create_directory_background_command(func_name: str, func_file_name: str, func_dir_path: str) -> 'Registry valid string to call python function':
+def create_directory_background_command(func_name: str, func_file_name: str, func_dir_path: str, params: str) -> 'Registry valid string to call python function':
     '''
     Creates a registry valid command to link a context menu entry to a funtion, specifically for backgrounds(DIRECTORY_BACKGROUND, DESKTOP_BACKGROUND).
 
@@ -149,10 +162,23 @@ def create_directory_background_command(func_name: str, func_file_name: str, fun
         '\\', '/')
     file_section = f'import {func_file_name}'
     dir_path = 'os.getcwd()'
-    func_section = f'{func_file_name}.{func_name}([{dir_path}])'
+    func_section = f'''{func_file_name}.{func_name}([{dir_path}],'{params}')'''
     full_command = f'''"{python_loc}" -c "{sys_section}; {file_section}; {func_section}"'''
 
     return full_command
+
+
+def create_shell_command(command: str, command_vars: list) -> 'Shell command':
+    '''
+    Creates a shell command and replaces '?' with the command_vars list
+    '''
+
+    transformed_vars = ["' + " + command_var_format(item) + " + '" for item in command_vars]
+    new_command = command.replace("?", '{}').format(*transformed_vars)
+    python_section = '''import os; import sys; os.system('{}')'''.format(new_command)
+    full_command = '"{}" -c "{}" \"%1\""'.format(sys.executable, python_section)
+    return full_command
+
 
 
 # windows_menus.py ----------------------------------------------------------------------------------------
@@ -213,20 +239,31 @@ class RegistryMenu:
 
         for item in items:
             if item.isMenu:
+                # if the item is a menu
                 submenu_path = self.create_menu(item.name, path)
                 self.compile(items=item.sub_items, path=submenu_path)
             else:
+                # Otherwise the item is  a command
                 if item.command == None:
+                    # If a Python function is defined
                     func_name, func_file_name, func_dir_path = item.get_method_info()
                     new_command = None
                     if self.type in ['DIRECTORY_BACKGROUND', 'DESKTOP_BACKGROUND']:
+                        # If it requires a background command
                         new_command = create_directory_background_command(
-                            func_name, func_file_name, func_dir_path)
+                            func_name, func_file_name, func_dir_path, item.params)
                     else:
+                        # If it requires a file command
                         new_command = create_file_select_command(
-                            func_name, func_file_name, func_dir_path)
+                            func_name, func_file_name, func_dir_path, item.params)
+                    self.create_command(item.name, path, new_command)
+                elif item.command_vars != None:
+                    # If the item has to be ran from os.system
+
+                    new_command = create_shell_command(item.command, item.command_vars)
                     self.create_command(item.name, path, new_command)
                 else:
+                    # The item is just a plain old command
                     self.create_command(item.name, path, item.command)
 
 
@@ -239,12 +276,14 @@ class FastRegistryCommand:
     Everything is identical to either the RegistryMenu class or code in the menus file
     '''
 
-    def __init__(self, name: str, type: str, command: str, python: 'function'):
+    def __init__(self, name: str, type: str, command: str, python: 'function', params: str, command_vars: list):
         self.name = name
         self.type = type
         self.path = context_registry_format(type)
         self.command = command
         self.python = python
+        self.params=params
+        self.command_vars = command_vars
 
     def get_method_info(self):
         import inspect
@@ -266,18 +305,22 @@ class FastRegistryCommand:
         command_path = os.path.join(key_path, 'command')
         create_key(command_path)
 
-        new_command = None
+        new_command = self.command
 
         if self.command == None:
+            # If a python function is defined
             func_name, func_file_name, func_dir_path = self.get_method_info()
             if self.type in ['DIRECTORY_BACKGROUND', 'DESKTOP_BACKGROUND']:
+                # If it requires a background selection
                 new_command = create_directory_background_command(
-                    func_name, func_file_name, func_dir_path)
+                    func_name, func_file_name, func_dir_path, self.params)
             else:
+                # If it requires a file selection
                 new_command = create_file_select_command(
-                    func_name, func_file_name, func_dir_path)
-        else:
-            new_command = self.command
+                    func_name, func_file_name, func_dir_path, self.params)
+        elif self.command_vars != None:
+            # If it has command_vars
+            new_command = create_shell_command(self.command, self.command_vars)
 
         set_key_value(command_path, '', new_command)
 

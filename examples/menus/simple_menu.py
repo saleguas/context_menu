@@ -1,9 +1,9 @@
-def foo2(filenames):
+def foo2(filenames, params):
     print('foo2')
     print(filenames)
     input()
 
-def foo3(filenames):
+def foo3(filenames, params):
     print('foo3')
     print(filenames)
     input()

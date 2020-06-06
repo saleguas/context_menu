@@ -7,13 +7,13 @@ from context_menu import windows_menus
 # ------------------------------------------------------------------------------
 
 
-def foo2(filenames):
+def foo2(filenames, params):
     print('foo2')
     print(filenames)
     input()
 
 
-def foo3(filenames):
+def foo3(filenames, params):
     print('foo3')
     print(filenames)
     input()
@@ -55,13 +55,10 @@ def test_file_select_command():
     )
 
     reg_command = windows_menus.create_file_select_command(
-        func_name, func_file_name, func_dir_path).replace('\\', '/')
-    valid_command = f'''"{sys.executable}" -c "import sys; sys.path.insert(0, '{func_dir_path[2:]}'); import test_windows; test_windows.foo3([' '.join(sys.argv[1:]) ])" "%1""'''.replace(
+        func_name, func_file_name, func_dir_path, '').replace('\\', '/')
+    valid_command = f'''"{sys.executable}" -c "import sys; sys.path.insert(0, '{func_dir_path[2:]}'); import test_windows; test_windows.foo3([' '.join(sys.argv[1:]) ],'')" "%1""'''.replace(
         '\\', '/')
 
-    print(reg_command)
-    print(valid_command)
+    # print(reg_command)
+    # print(valid_command)
     assert reg_command == valid_command
-
-
-test_file_select_command()
