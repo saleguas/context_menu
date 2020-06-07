@@ -34,13 +34,13 @@ try:
 
     # ------------------------------------------------------------------
 
-    def create_key(path: str, hive=winreg.HKEY_CLASSES_ROOT):
+    def create_key(path: str, hive=winreg.HKEY_CURRENT_USER):
         '''
         Creates a key at the desired path.
         '''
         winreg.CreateKey(hive, path)
 
-    def set_key_value(key_path: str, subkey_name: str, value: 'Value', hive=winreg.HKEY_CLASSES_ROOT):
+    def set_key_value(key_path: str, subkey_name: str, value: 'Value', hive=winreg.HKEY_CURRENT_USER):
         '''
         Changes the value of a subkey. Creates the subkey if it doesn't exist.
         '''
@@ -50,7 +50,7 @@ try:
         winreg.SetValueEx(registry_key, subkey_name, 0, winreg.REG_SZ, value)
         winreg.CloseKey(registry_key)
 
-    def list_keys(path: str, hive=winreg.HKEY_CLASSES_ROOT) -> 'List of keys':
+    def list_keys(path: str, hive=winreg.HKEY_CURRENT_USER) -> 'List of keys':
         '''
         Returns a list of all the keys at a given registry path.
         '''
@@ -65,7 +65,7 @@ try:
 
         return keys
 
-    def delete_key(path: str, hive=winreg.HKEY_CLASSES_ROOT):
+    def delete_key(path: str, hive=winreg.HKEY_CURRENT_USER):
         '''
         Deletes the desired key and all other subkeys at the given path.
         '''
@@ -86,11 +86,11 @@ except:
 # These are the paths in the registry that correlate to when the context menu is fired.
 # For example, FILES is when a file is right clicked
 CONTEXT_SHORTCUTS = {
-    'FILES': '*\\shell',
-    'DIRECTORY': 'Directory\\shell',
-    'DIRECTORY_BACKGROUND': 'Directory\\Background\\shell',
-    'DESKTOP_BACKGROUND': 'DesktopBackground\\shell',
-    'DRIVE': 'Drive\\shell'
+    'FILELOC' : 'Software\\Classes\\',
+    'FILES': 'Software\\Classes\\*\\shell',
+    'DIRECTORY': 'Software\\Classes\\Directory\\shell',
+    'DIRECTORY_BACKGROUND': 'Software\\Classes\\Directory\\Background\\shell',
+    'DRIVE': 'Software\\Classes\\Drive\\shell'
 }
 
 # Not used yet, but could be useful in the future
@@ -110,11 +110,11 @@ def context_registry_format(item: str) -> 'registry path to the desired type':
     '''
     Converts a verbose type into a registry path.
 
-    For example, 'FILES' -> '*\\shell'
+    For example, 'FILES' -> 'Software\\Classes\\*\\shell'
     '''
     item = item.upper()
     if '.' in item:
-        return item.lower()
+        return os.path.join(CONTEXT_SHORTCUTS['FILELOC'], item.lower(), 'shell')
     return CONTEXT_SHORTCUTS[item]
 
 
@@ -230,10 +230,10 @@ class RegistryMenu:
 
     def compile(self, items: list = None, path: str = None):
         '''
-        Used to create the meun. Recursively iterates through each element in the top level menu.
+        Used to create the menu. Recursively iterates through each element in the top level menu.
         '''
         if items == None:
-            run_admin()
+            # run_admin()
             items = self.sub_items
             path = self.create_menu(self.name, self.path)
 
@@ -297,7 +297,7 @@ class FastRegistryCommand:
         return (func_name, func_file_name, func_dir_path)
 
     def compile(self):
-        run_admin()
+        # run_admin()
 
         key_path = os.path.join(self.path, self.name)
         create_key(key_path)
@@ -332,7 +332,7 @@ try:
         '''
         Removes a context menu from the windows registry.
         '''
-        run_admin()
+        # run_admin()
         menu_path = os.path.join(CONTEXT_SHORTCUTS[type], name)
         delete_key(menu_path)
 except:

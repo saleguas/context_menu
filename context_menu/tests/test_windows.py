@@ -47,7 +47,7 @@ def test_registry_menu_items():
 
 
 def test_registry_menu_path():
-    assert wm.path == '*\\shell'
+    assert wm.path == 'Software\\Classes\\*\\shell'
 
 
 def test_file_select_command():

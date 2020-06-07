@@ -124,7 +124,7 @@ if __name__ == '__main__':
     fc.compile()
 ```
 
-Admin privileges are required on windows, as it modifies the Registry. The code will automatically prompt for Admin rights if it is not sufficiently elevated.
+~~Admin privileges are required on windows, as it modifies the Registry. The code will automatically prompt for Admin rights if it is not sufficiently elevated.~~
 
 # Advanced Usage
 
@@ -144,9 +144,6 @@ from context_menu import menus
 menus.removeMenu('Foo Menu', 'FILES')
 ```
 
-* * *
-
-Check out the [examples folder](examples) for more complicated examples.
 
 ## `params` Command Parameter
 
@@ -182,21 +179,33 @@ All of the preset values are as follows:
 
 Works on the `FastCommand` and `ContextCommand` class.
 
+## Opening on Files
+
+Simply pass the extension of the file you want to open onto when creating the menu.
+
+```Python
+fc = menus.FastCommand('Weird Copy', type='.txt', command='touch ?x', command_vars=['FILENAME']) # opens on .txt files
+fc.compile()
+```
+
+* * *
+
+Check out the [examples folder](examples) for more complicated examples.
+
 # Types
 
 There are different locations where a context menu can fire (if you right click on a folder you'll get different options then if you right click on a file).  The `type` variable controls this behavior in the library, and you can reference this table to determine the `type`:
 
-| Name                 | Location                                        | Action                                   |
-| -------------------- | ----------------------------------------------- | ---------------------------------------- |
-| FILES                | HKEY_CLASSES_ROOT\*\\shell\\                    | Opens on a file                          |
-| DIRECTORY            | HKEY_CLASSES_ROOT\\Directory\\shell             | Opens on a directory                     |
-| DIRECTORY_BACKGROUND | HKEY_CLASSES_ROOT\\Directory\\Background\\shell | Opens on the background of the Directory |
-| DESKTOP_BACKGROUND   | HKEY_CLASSES_ROOT\\DesktopBackground\\Shell     | Opens on the background of the Desktop   |
-| DRIVE                | HKEY_CLASSES_ROOT\\Drive\\shell                 | Opens on the drives(think USBs)          |
+| Name                 | Location                                                           | Action                                   |
+| -------------------- | ------------------------------------------------------------------ | ---------------------------------------- |
+| FILES                | HKEY_CURRENT_USER\\Software\\Classes\\\*\\shell\\                  | Opens on a file                          |
+| DIRECTORY            | HKEY_CURRENT_USER\\Software\\Classes\\Directory\\shell             | Opens on a directory                     |
+| DIRECTORY_BACKGROUND | HKEY_CURRENT_USER\\Software\\Classes\\Directory\\Background\\shell | Opens on the background of the Directory |
+| DRIVE                | HKEY_CURRENT_USER\\Software\\Classes\\Drive\\shell                 | Opens on the drives(think USBs)          |
 
 # Important notes
 
--   The code can sometimes be really weird when it comes to admin rights on Windows. The `compile()` method will automatically prompt for admin rights if required, but this can cause issues sometimes.
+-   ~~The code can sometimes be really weird when it comes to admin rights on Windows. The `compile()` method will automatically prompt for admin rights if required, but this can cause issues sometimes.~~ Admin rights no longer required as of version 1.2.0.
 
 -   Almost all of the errors I've encountered in testing were when the code and the functions were in the same file. You should make a separate file for the code or surround it with `if __name__ == '__main__':`.
 
