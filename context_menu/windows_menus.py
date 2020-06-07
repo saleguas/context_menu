@@ -333,7 +333,7 @@ try:
         Removes a context menu from the windows registry.
         '''
         # run_admin()
-        menu_path = os.path.join(CONTEXT_SHORTCUTS[type], name)
+        menu_path = os.path.join(context_registry_format(type), name)
         delete_key(menu_path)
 except:
     pass
