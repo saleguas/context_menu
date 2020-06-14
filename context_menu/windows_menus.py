@@ -140,8 +140,7 @@ def create_file_select_command(func_name: str, func_file_name: str, func_dir_pat
     Requires the name of the function, the name of the file, and the path to the directory of the file.
     '''
     python_loc = sys.executable
-    sys_section = f'''import sys; sys.path.insert(0, '{func_dir_path[2:]}')'''.replace(
-        '\\', '/')
+    sys_section = f'''import sys; sys.path.insert(0, '{func_dir_path}')'''.replace('\\', '/')
     file_section = f'import {func_file_name}'
     dir_path = """' '.join(sys.argv[1:]) """
     func_section = f'''{func_file_name}.{func_name}([{dir_path}],'{params}')'''
@@ -158,8 +157,7 @@ def create_directory_background_command(func_name: str, func_file_name: str, fun
     Requires the name of the function, the name of the file, and the path to the directory of the file.
     '''
     python_loc = sys.executable
-    sys_section = f'''import sys; import os; sys.path.insert(0, '{func_dir_path[2:]}')'''.replace(
-        '\\', '/')
+    sys_section = f'''import sys; import os; sys.path.insert(0, '{func_dir_path}')'''.replace('\\', '/')
     file_section = f'import {func_file_name}'
     dir_path = 'os.getcwd()'
     func_section = f'''{func_file_name}.{func_name}([{dir_path}],'{params}')'''

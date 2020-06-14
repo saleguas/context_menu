@@ -89,7 +89,7 @@ class ContextCommand:
         '''
         func_file_path = os.path.abspath(inspect.getfile(self.python))
 
-        func_dir_path = os.path.dirname(func_file_path)
+        func_dir_path = os.path.dirname(func_file_path).replace('\\', '/')
         func_name = self.python.__name__
         func_file_name = os.path.splitext(os.path.basename(func_file_path))[0]
 
@@ -117,7 +117,7 @@ class FastCommand:
     def get_method_info(self):
         func_file_path = os.path.abspath(inspect.getfile(self.python))
 
-        func_dir_path = os.path.dirname(func_file_path)
+        func_dir_path = os.path.dirname(func_file_path).replace('\\', '/')
         func_name = self.python.__name__
         func_file_name = os.path.splitext(os.path.basename(func_file_path))[0]
 
