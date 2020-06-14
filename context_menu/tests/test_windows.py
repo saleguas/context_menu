@@ -56,7 +56,7 @@ def test_file_select_command():
 
     reg_command = windows_menus.create_file_select_command(
         func_name, func_file_name, func_dir_path, '').replace('\\', '/')
-    valid_command = f'''"{sys.executable}" -c "import sys; sys.path.insert(0, '{func_dir_path[2:]}'); import test_windows; test_windows.foo3([' '.join(sys.argv[1:]) ],'')" "%1""'''.replace(
+    valid_command = f'''"{sys.executable}" -c "import sys; sys.path.insert(0, '{func_dir_path}'); import test_windows; test_windows.foo3([' '.join(sys.argv[1:]) ],'')" "%1""'''.replace(
         '\\', '/')
 
     # print(reg_command)
