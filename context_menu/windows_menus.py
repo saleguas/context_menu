@@ -145,7 +145,7 @@ def create_file_select_command(func_name: str, func_file_name: str, func_dir_pat
     dir_path = """' '.join(sys.argv[1:]) """
     func_section = f'''{func_file_name}.{func_name}([{dir_path}],'{params}')'''
     python_portion = f'''"{python_loc}" -c "{sys_section}; {file_section}; {func_section}"'''
-    full_command = '''{} \"%1\""'''.format(python_portion)
+    full_command = f'''{python_portion} \"%1\"'''
 
     return full_command
 
