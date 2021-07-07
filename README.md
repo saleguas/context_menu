@@ -213,3 +213,4 @@ There are different locations where a context menu can fire (if you right click 
 Feel free to check out a [file sorter](https://github.com/saleguas/freshen) I made that implements very complex usage of this library.
 
 You can check out the official documentation [here](https://context-menu.readthedocs.io/en/latest/index.html).
+
