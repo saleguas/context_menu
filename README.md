@@ -145,6 +145,7 @@ menus.removeMenu('Foo Menu', 'FILES')
 ```
 
 
+
 ## `params` Command Parameter
 
 In both the `ContextCommand` class and `FastCommand` class you can pass in a parameter, defined by the `parameter=None` variable. **This value MUST be a string!** This means instead of passing a list or numbers, pass it as a string separated by spaces or whatever to delimitate it.
