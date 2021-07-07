@@ -2,7 +2,7 @@
 
 A Python library to create and deploy cross-platform native context menus.
 
-![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) ![python version](https://img.shields.io/pypi/pyversions/context_menu)
+![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) ![python version](https://img.shields.io/pypi/pyversions/context_menu) [![Downloads](https://pepy.tech/badge/context-menu)](https://pepy.tech/project/context-menu)
 
 * * *
 
