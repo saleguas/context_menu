@@ -39,4 +39,4 @@ jobs:
 
 
 install: pip3 install --upgrade pip  # all three OSes agree about 'pip3'
-script: pytest
+script: pytest -v
