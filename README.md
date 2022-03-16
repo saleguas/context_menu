@@ -12,7 +12,6 @@ A Python library to create and deploy cross-platform native context menus.
 
 1.  Install the library via pip:
 
-
     python -m pip install context_menu
 
 2.  Create and compile the menu:
