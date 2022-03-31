@@ -47,6 +47,7 @@ jobs:
         - python --version
         - pip install -U pip
         - pip install -U pytest
+        - pip install -U context_menu
         - ls
         - cd context_menu/tests
 
