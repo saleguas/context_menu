@@ -5,3 +5,4 @@ context_menu.egg-info
 __pycache__
 .test_cm
 direct_test.py
+.idea

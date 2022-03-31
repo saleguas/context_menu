@@ -1,6 +1,10 @@
-from context_menu import menus
-
-from context_menu import linux_menus
+import os, sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import menus
+import linux_menus
+# from context_menu import menus
+#
+# from context_menu import linux_menus
 
 
 fc = menus.FastCommand('TestCommand', type='FILES',
