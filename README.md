@@ -14,7 +14,15 @@ Documentation available at: https://context_menu.readthedocs.io/en/latest/
 
 # Features
 
-context_menu was created as due to the lack of an intuitive and easy to use cross-platform context menu library. The library allows you to create your own context menu entries and control their behavior seamlessly in native Python.
+context_menu was created as due to the lack of an intuitive and easy to use cross-platform context menu library. The library allows you to create your own context menu entries and control their behavior seamlessly in native Python. The library has the following features:
+
+* Written in pure python with no other dependencies
+* Extremely intuitive design inspired by Keras Tensorflow
+* Swift installation from Python's Package Manager (pip)
+* Painless context menu creation
+* Cascading context menu support
+* The ability to natively integrate python functions from a context entry call
+* Detailed documentation
 
 ## What is the context menu?
 
@@ -52,13 +60,15 @@ _Note: If you're on Windows and it says the command isn't recognized, make sure 
 
 # Quickstart
 
+Let's say you want to make a basic context menu entry when you right click a file.
 1.  If you haven't already Install the library via pip:
 ```commandline
 python -m pip install context_menu
 ```
 2. Create and compile the menu:
 
-You can create menus in as little as 3 lines:
+It's  super easy!
+You can create entries in as little as 3 lines:
 
 ```python
     from context_menu import menus
@@ -67,7 +77,12 @@ You can create menus in as little as 3 lines:
 ```
 ![example fast command](media/example_fast_command.png)
 
-Or you can create much more complicated nested menus:
+All you have to do is import the library and define the type of context entry you want. The options are:
+* A context menu (an entry that has more entries)
+* A fast command (a single context menu entry to kick a running script)
+* A context command which can be added to menus for more complex commands
+
+You can also create much more complicated nested menus:
 
 ```Python
 def foo2(filenames, params):
@@ -103,11 +118,11 @@ if __name__ == '__main__':
 ```
 ![second Example](media/second_example.png)
 
-# Detailed Usage
+# Advanced Usage
 
-## `ContextMenu` Class
+## The `ContextMenu` Class
 
-The [ContextMenu](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu) object holds other context objects. It expects a name, and the activation type if it is the root menu(the first menu). Only compile the root menu.
+The [ContextMenu](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu) object holds other context objects. It expects a name, and **the activation type** if it is the root menu(the first menu). Only compile the root menu.
 
 ```Python
 ContextMenu(name: str, type: str = None)
@@ -127,7 +142,7 @@ cm.compile()
 
 You have to call [{MENU}.compile()](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu.compile) in order to create the menu.
 
-## `ContextCommand` Class
+## The `ContextCommand` Class
 
 The [ContextCommand](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextCommand) class creates the selectable part of the menu (you can click it). It requires a name, and either a Python function or a command **(but NOT both)** and has various other options
 
@@ -137,9 +152,25 @@ ContextCommand(name: str, command: str = None, python: 'function' = None, params
 
 Python functions can be passed to this method, regardless of their location. **However, the function must accept only two parameters `filenames`, which is a list of paths\*, and `params`, the parameters passed to the function**. and if the function is in the same file as the menu, you have to surround it with `if __name__ == '__main__':`
 
+```python
+# An example of a valid function
+def valid_function(filenames, params):
+    print('Im valid!')
+    print(filenames)
+    print(params)
+
+# Examples of invalid functions
+def invalid_function_1(filenames, param1, param2):
+    print('Im invalid!')
+    print(filenames)
+
+def invalid_function_2(params):
+    print('Im invalid!')
+    print(params)
+```
 Any command passed (as a string) will be directly ran from the shell.
 
-## `FastCommand` Class
+## The `FastCommand` Class
 
 The [FastCommand](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.FastCommand) class is an extension of the ContextMenu class and allows you to quickly create a single entry menu. It expects a name, type, and command/function.
 
@@ -159,13 +190,9 @@ if __name__ == '__main__':
     fc.compile()
 ```
 
-~~Admin privileges are required on windows, as it modifies the Registry. The code will automatically prompt for Admin rights if it is not sufficiently elevated.~~
+## The `removeMenu` method
 
-# Advanced Usage
-
-## `removeMenu` method
-
-You can remove a menu easily as well. Simply call the ['menus.removeMenu()'](<>) method.
+You can remove a context menu entry easily as well. Simply call the ['menus.removeMenu()'](<>) method.
 
 ```python
 removeMenu(name: str, type: str)
@@ -179,9 +206,9 @@ from context_menu import menus
 menus.removeMenu('Foo Menu', 'FILES')
 ```
 
+and boom! It's gone 😎
 
-
-## `params` Command Parameter
+## The `params` Command Parameter
 
 In both the `ContextCommand` class and `FastCommand` class you can pass in a parameter, defined by the `parameter=None` variable. **This value MUST be a string!** This means instead of passing a list or numbers, pass it as a string separated by spaces or whatever to delimitate it.
 
@@ -217,16 +244,18 @@ Works on the `FastCommand` and `ContextCommand` class.
 
 ## Opening on Files
 
-Simply pass the extension of the file you want to open onto when creating the menu.
+Let's say you only want your context menu entry to open on a certain type of file, such as a `.txt` file. You can do this by adding a `type` variable to the `ContextCommand` or `FastCommand` class.
 
 ```Python
-fc = menus.FastCommand('Weird Copy', type='.txt', command='touch ?x', command_vars=['FILENAME']) # opens on .txt files
+fc = menus.FastCommand('Weird Copy', type='.txt', command='touch ?x', command_vars=['FILENAME']) # opens only on .txt files
 fc.compile()
 ```
 
+Now you'll only see the "Weird Copy" menu entry when you right click a .txt file.
+
 * * *
 
-Check out the [examples folder](examples) for more complicated examples.
+I strongly recommend checking out the [examples folder](examples) for more complicated examples and usage.
 
 # Types
 
