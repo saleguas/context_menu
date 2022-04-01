@@ -1,71 +1,107 @@
-# 💻 context_menu 💻
+# [context_menu](https://github.com/saleguas/context_menu) ![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) [![Downloads](https://pepy.tech/badge/context-menu)](https://pepy.tech/project/context-menu)
 
-A Python library to create and deploy cross-platform native context menus.
+![logo](media/logo.png)
 
-![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) ![python version](https://img.shields.io/pypi/pyversions/context_menu) [![Downloads](https://pepy.tech/badge/context-menu)](https://pepy.tech/project/context-menu)
+💻 A Python library to create and deploy cross-platform native context menus. 💻
+
+Documentation available at: https://context_menu.readthedocs.io/en/latest/
 
 * * *
 
 ![example usage](media/thumbnail2.gif)
 
+* * *
+
+# Features
+
+context_menu was created as due to the lack of an intuitive and easy to use cross-platform context menu library. The library allows you to create your own context menu entries and control their behavior seamlessly in native Python.
+
+## What is the context menu?
+
+The context menu is the window that is displayed when you right click:
+
+![img.png](media/context_menu.png)
+
+The context menu is different depending on what was right clicked. For example, right clicking a folder will give you different options than right clicking a file. 
+
+## What Operating Systems are supported?
+
+Currently, the only operating systems supported are:
+ - Windows 7
+ - Windows 10
+ - Windows 11
+ - Linux (Using Nautilus)
+
+## What Python versions are supported?
+
+**All python versions 3.1 and above** are supported.
+
+# Installation  
+
+If you haven't installed Python, download and run an installer from the official website: https://www.python.org/downloads/
+
+Once you have Python, the rest is super simple. Simply just run the following command in a terminal to install the package:
+```commandline
+python -m pip install context_menu
+```
+or if you're on Linux:
+```commandline
+python3 -m pip install context_menu
+```
+_Note: If you're on Windows and it says the command isn't recognized, make sure to add [Python to your path](https://datatofish.com/add-python-to-windows-path/) and run the command prompt as administrator_
+
 # Quickstart
 
-1.  Install the library via pip:
+1.  If you haven't already Install the library via pip:
+```commandline
+python -m pip install context_menu
+```
+2. Create and compile the menu:
 
-    python -m pip install context_menu
+You can create menus in as little as 3 lines:
 
-2.  Create and compile the menu:
-
--   You can create menus in as little as 3 lines:
-    ```python
+```python
     from context_menu import menus
     fc = menus.FastCommand('Example Fast Command 1', type='FILES', command='echo Hello')
     fc.compile()
-    ```
--   Or you can create much more complicated nested menus:
+```
+![example fast command](media/example_fast_command.png)
+
+Or you can create much more complicated nested menus:
 
 ```Python
-        def foo2(filenames, params):
-            print('foo2')
-            print(filenames)
-            input()
+def foo2(filenames, params):
+    print('foo2')
+    print(filenames)
+    input()
 
-        def foo3(filenames, params):
-            print('foo3')
-            print(filenames)
-            input()
+def foo3(filenames, params):
+    print('foo3')
+    print(filenames)
+    input()
 
-        if __name__ == '__main__':
-            from context_menu import menus
+if __name__ == '__main__':
+    from context_menu import menus
 
-            cm = menus.ContextMenu('Foo menu', type='FILES')
-            cm2 = menus.ContextMenu('Foo Menu 2')
-            cm3 = menus.ContextMenu('Foo Menu 3')
+    cm = menus.ContextMenu('Foo menu', type='FILES')
+    cm2 = menus.ContextMenu('Foo Menu 2')
+    cm3 = menus.ContextMenu('Foo Menu 3')
 
-            cm3.add_items([
-                menus.ContextCommand('Foo One', command='echo hello > example.txt'),
-            ])
-            cm2.add_items([
-                menus.ContextCommand('Foo Two', python=foo2),
-                cm3,
-            ])
-            cm.add_items([
-                cm2,
-                menus.ContextCommand('Foo Three', python=foo3)
-            ])
+    cm3.add_items([
+        menus.ContextCommand('Foo One', command='echo hello > example.txt'),
+    ])
+    cm2.add_items([
+        menus.ContextCommand('Foo Two', python=foo2),
+        cm3,
+    ])
+    cm.add_items([
+        cm2,
+        menus.ContextCommand('Foo Three', python=foo3)
+    ])
 
-            cm.compile()
+    cm.compile()
 ```
-
-3.  See the output!
-
--   First example
-
-    ![first Example](media/first_example.png)
-
--   Second example
-
-    ![second Example](media/second_example.png)
+![second Example](media/second_example.png)
 
 # Detailed Usage
 
