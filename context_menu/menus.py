@@ -9,9 +9,15 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 # Import the necessary library depending on the OS
 if platform.system() == 'Linux':
-    import linux_menus
+    try:
+        import linux_menus
+    except:
+        from context_menu import linux_menus
 if platform.system() == 'Windows':
-    import windows_menus
+    try:
+        import windows_menus
+    except:
+        from context_menu import windows_menus
 
 
 class ContextMenu:
