@@ -257,9 +257,10 @@ Now you'll only see the "Weird Copy" menu entry when you right click a .txt file
 
 I strongly recommend checking out the [examples folder](examples) for more complicated examples and usage.
 
-# Types
+* * *
+## Activation Types
 
-There are different locations where a context menu can fire (if you right click on a folder you'll get different options then if you right click on a file).  The `type` variable controls this behavior in the library, and you can reference this table to determine the `type`:
+There are different locations where a context menu can fire. For example, if you right click on a folder you'll get different options than if you right click on a file.  The `type` variable controls this behavior in the library, and you can reference this table to determine the `type`:
 
 | Name                 | Location                                                           | Action                                   |
 | -------------------- | ------------------------------------------------------------------ | ---------------------------------------- |
@@ -269,8 +270,6 @@ There are different locations where a context menu can fire (if you right click 
 | DRIVE                | HKEY_CURRENT_USER\\Software\\Classes\\Drive\\shell                 | Opens on the drives(think USBs)          |
 
 # Important notes
-
--   ~~The code can sometimes be really weird when it comes to admin rights on Windows. The `compile()` method will automatically prompt for admin rights if required, but this can cause issues sometimes.~~ Admin rights no longer required as of version 1.2.0.
 
 -   Almost all of the errors I've encountered in testing were when the code and the functions were in the same file. You should make a separate file for the code or surround it with `if __name__ == '__main__':`.
 
