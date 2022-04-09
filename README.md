@@ -14,7 +14,9 @@ Documentation available at: https://context_menu.readthedocs.io/en/latest/
 
 # Features
 
-context_menu was created as due to the lack of an intuitive and easy to use cross-platform context menu library. The library allows you to create your own context menu entries and control their behavior seamlessly in native Python. The library has the following features:
+context_menu was created as due to the lack of an intuitive and easy to use cross-platform context menu library. The
+library allows you to create your own context menu entries and control their behavior seamlessly in native Python. The
+library has the following features:
 
 * Written in pure python with no other dependencies
 * Extremely intuitive design inspired by Keras Tensorflow
@@ -30,54 +32,70 @@ The context menu is the window that is displayed when you right click:
 
 ![img.png](media/context_menu.png)
 
-The context menu is different depending on what was right clicked. For example, right clicking a folder will give you different options than right clicking a file. 
+The context menu is different depending on what was right clicked. For example, right clicking a folder will give you
+different options than right clicking a file.
 
 ## What Operating Systems are supported?
 
 Currently, the only operating systems supported are:
- - Windows 7
- - Windows 10
- - Windows 11
- - Linux (Using Nautilus)
+
+- Windows 7
+- Windows 10
+- Windows 11
+- Linux (Using Nautilus)
 
 ## What Python versions are supported?
 
 **All python versions 3.1 and above** are supported.
 
-# Installation  
+# Installation
 
-If you haven't installed Python, download and run an installer from the official website: https://www.python.org/downloads/
+If you haven't installed Python, download and run an installer from the official
+website: https://www.python.org/downloads/
 
-Once you have Python, the rest is super simple. Simply just run the following command in a terminal to install the package:
+Once you have Python, the rest is super simple. Simply just run the following command in a terminal to install the
+package:
+
 ```commandline
 python -m pip install context_menu
 ```
+
 or if you're on Linux:
+
 ```commandline
 python3 -m pip install context_menu
 ```
-_Note: If you're on Windows and it says the command isn't recognized, make sure to add [Python to your path](https://datatofish.com/add-python-to-windows-path/) and run the command prompt as administrator_
+
+_Note: If you're on Windows and it says the command isn't recognized, make sure to
+add [Python to your path](https://datatofish.com/add-python-to-windows-path/) and run the command prompt as
+administrator_
 
 # Quickstart
 
 Let's say you want to make a basic context menu entry when you right click a file.
-1.  If you haven't already Install the library via pip:
+
+1. If you haven't already Install the library via pip:
+
 ```commandline
 python -m pip install context_menu
 ```
+
 2. Create and compile the menu:
 
-It's  super easy!
+It's super easy!
 You can create entries in as little as 3 lines:
 
 ```python
     from context_menu import menus
-    fc = menus.FastCommand('Example Fast Command 1', type='FILES', command='echo Hello')
-    fc.compile()
+
+fc = menus.FastCommand('Example Fast Command 1', type='FILES', command='echo Hello')
+fc.compile()
 ```
+
 ![example fast command](media/example_fast_command.png)
 
 All you have to do is import the library and define the type of context entry you want. The options are:
+
 * A context menu (an entry that has more entries)
 * A fast command (a single context menu entry to kick a running script)
 * A context command which can be added to menus for more complex commands
@@ -90,10 +108,12 @@ def foo2(filenames, params):
     print(filenames)
     input()
 
+
 def foo3(filenames, params):
     print('foo3')
     print(filenames)
     input()
+
 
 if __name__ == '__main__':
     from context_menu import menus
@@ -116,19 +136,24 @@ if __name__ == '__main__':
 
     cm.compile()
 ```
+
 ![second Example](media/second_example.png)
 
 # Advanced Usage
 
 ## The `ContextMenu` Class
 
-The [ContextMenu](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu) object holds other context objects. It expects a name, and **the activation type** if it is the root menu(the first menu). Only compile the root menu.
+The [ContextMenu](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu) object
+holds other context objects. It expects a name, and **the activation type** if it is the root menu(the first menu). Only
+compile the root menu.
 
 ```Python
 ContextMenu(name: str, type: str = None)
 ```
 
-Menus can be added to menus, creating cascading context menus. You can use the [{MENU}.add_items{ITEMS}](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu.add_items) function to add context elements together, for example:
+Menus can be added to menus, creating cascading context menus. You can use
+the [{MENU}.add_items{ITEMS}](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu.add_items)
+function to add context elements together, for example:
 
 ```Python
 cm = menus.ContextMenu('Foo menu', type='DIRECTORY_BACKGROUND')
@@ -140,17 +165,23 @@ cm.add_items([
 cm.compile()
 ```
 
-You have to call [{MENU}.compile()](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu.compile) in order to create the menu.
+You have to
+call [{MENU}.compile()](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu.compile)
+in order to create the menu.
 
 ## The `ContextCommand` Class
 
-The [ContextCommand](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextCommand) class creates the selectable part of the menu (you can click it). It requires a name, and either a Python function or a command **(but NOT both)** and has various other options
+The [ContextCommand](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextCommand)
+class creates the selectable part of the menu (you can click it). It requires a name, and either a Python function or a
+command **(but NOT both)** and has various other options
 
 ```Python
-ContextCommand(name: str, command: str = None, python: 'function' = None, params: str=None, command_vars: list=None)
+ContextCommand(name: str, command: str = None, python: 'function' = None, params: str = None, command_vars: list = None)
 ```
 
-Python functions can be passed to this method, regardless of their location. **However, the function must accept only two parameters `filenames`, which is a list of paths\*, and `params`, the parameters passed to the function**. and if the function is in the same file as the menu, you have to surround it with `if __name__ == '__main__':`
+Python functions can be passed to this method, regardless of their location. **However, the function must accept only
+two parameters `filenames`, which is a list of paths\*, and `params`, the parameters passed to the function**. and if
+the function is in the same file as the menu, you have to surround it with `if __name__ == '__main__':`
 
 ```python
 # An example of a valid function
@@ -159,29 +190,36 @@ def valid_function(filenames, params):
     print(filenames)
     print(params)
 
+
 # Examples of invalid functions
 def invalid_function_1(filenames, param1, param2):
     print('Im invalid!')
     print(filenames)
 
+
 def invalid_function_2(params):
     print('Im invalid!')
     print(params)
 ```
+
 Any command passed (as a string) will be directly ran from the shell.
 
 ## The `FastCommand` Class
 
-The [FastCommand](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.FastCommand) class is an extension of the ContextMenu class and allows you to quickly create a single entry menu. It expects a name, type, and command/function.
+The [FastCommand](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.FastCommand) class
+is an extension of the ContextMenu class and allows you to quickly create a single entry menu. It expects a name, type,
+and command/function.
 
 ```python
-FastCommand(name: str, type: str, command: str = None, python: 'function' = None, params: str = '', command_vars: list = None)
+FastCommand(
+    name: str, type: str, command: str = None, python: 'function' = None, params: str = '', command_vars: list = None)
 ```
 
 ```python
 def foo1(filenames, params):
     print(filenames)
     input()
+
 
 if __name__ == '__main__':
     from context_menu import menus
@@ -210,7 +248,9 @@ and boom! It's gone 😎
 
 ## The `params` Command Parameter
 
-In both the `ContextCommand` class and `FastCommand` class you can pass in a parameter, defined by the `parameter=None` variable. **This value MUST be a string!** This means instead of passing a list or numbers, pass it as a string separated by spaces or whatever to delimitate it.
+In both the `ContextCommand` class and `FastCommand` class you can pass in a parameter, defined by the `parameter=None`
+variable. **This value MUST be a string!** This means instead of passing a list or numbers, pass it as a string
+separated by spaces or whatever to delimitate it.
 
 ```Python
 fc = menus.FastCommand('Example Fast Command 1', type='FILES', python=foo1, params='a b c d e')
@@ -223,14 +263,17 @@ Works on the `FastCommand` and `ContextCommand` class.
 
 ## `command_vars` Command Parameter
 
-If you decide to pass a shell command, you can access a list of special variables. For example, if I wanted to run a custom command with the file selected, I could use the following:
+If you decide to pass a shell command, you can access a list of special variables. For example, if I wanted to run a
+custom command with the file selected, I could use the following:
 
 ```Python
 fc = menus.FastCommand('Weird Copy', type='FILES', command='touch ?x', command_vars=['FILENAME'])
 fc.compile()
 ```
 
-which would create a new file with the name of whatever I selected with an 'x' on the end. The `?` variable is interpreted from left to right and replaced with the selected values [(see this)](https://github.com/saleguas/context_menu/issues/3).
+which would create a new file with the name of whatever I selected with an 'x' on the end. The `?` variable is
+interpreted from left to right and replaced with the selected
+values [(see this)](https://github.com/saleguas/context_menu/issues/3).
 
 All of the preset values are as follows:
 
@@ -244,23 +287,22 @@ Works on the `FastCommand` and `ContextCommand` class.
 
 ## Opening on Files
 
-Let's say you only want your context menu entry to open on a certain type of file, such as a `.txt` file. You can do this by adding a `type` variable to the `ContextCommand` or `FastCommand` class.
+Let's say you only want your context menu entry to open on a certain type of file, such as a `.txt` file. You can do
+this by adding a `type` variable to the `ContextCommand` or `FastCommand` class.
 
 ```Python
-fc = menus.FastCommand('Weird Copy', type='.txt', command='touch ?x', command_vars=['FILENAME']) # opens only on .txt files
+fc = menus.FastCommand('Weird Copy', type='.txt', command='touch ?x',
+                       command_vars=['FILENAME'])  # opens only on .txt files
 fc.compile()
 ```
 
 Now you'll only see the "Weird Copy" menu entry when you right click a .txt file.
 
-* * *
-
-I strongly recommend checking out the [examples folder](examples) for more complicated examples and usage.
-
-* * *
 ## Activation Types
 
-There are different locations where a context menu can fire. For example, if you right click on a folder you'll get different options than if you right click on a file.  The `type` variable controls this behavior in the library, and you can reference this table to determine the `type`:
+There are different locations where a context menu can fire. For example, if you right click on a folder you'll get
+different options than if you right click on a file. The `type` variable controls this behavior in the library, and you
+can reference this table to determine the `type`:
 
 | Name                 | Location                                                           | Action                                   |
 | -------------------- | ------------------------------------------------------------------ | ---------------------------------------- |
@@ -269,11 +311,46 @@ There are different locations where a context menu can fire. For example, if you
 | DIRECTORY_BACKGROUND | HKEY_CURRENT_USER\\Software\\Classes\\Directory\\Background\\shell | Opens on the background of the Directory |
 | DRIVE                | HKEY_CURRENT_USER\\Software\\Classes\\Drive\\shell                 | Opens on the drives(think USBs)          |
 
-# Important notes
+* * *
 
--   Almost all of the errors I've encountered in testing were when the code and the functions were in the same file. You should make a separate file for the code or surround it with `if __name__ == '__main__':`.
-
-Feel free to check out a [file sorter](https://github.com/saleguas/freshen) I made that implements very complex usage of this library.
+I strongly recommend checking out the [examples folder](examples) for more complicated examples and usage.
 
 You can check out the official documentation [here](https://context-menu.readthedocs.io/en/latest/index.html).
 
+
+* * *
+
+# Goals
+
+This project tackles some pretty big issues, and there's definetly some goals that I'd like to accomplish. The current roadmap is as follows:
+
+* Support for other Linux distributions
+* Better approach to the Linux GNOME integration
+* Mac support
+* Bypass 16 entry limit on windows
+
+If by all means you want to help reach these milestones, see contribution below.
+
+# Contribution
+
+Contributing is super simple! Create an additional branch and make a pull request with your changes. If the changes past the automated tests, it will be manually reviewed and merged accordingly.
+
+Any and all help is appreciated, and if you have any questions, feel free to contact me directly.
+
+# Important notes
+
+- Almost all the errors I've encountered in testing were when the code and the functions were in the same file. You
+  should make a separate file for the code or surround it with `if __name__ == '__main__':`.
+- On windows, there's currently a 16 entry limit on the context menu.
+
+# Freshen - A context_menu project!
+
+Feel free to check out a [file sorter](https://github.com/saleguas/freshen) program I made that directly implements this library.
+
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=saleguas&repo=freshen)](https://github.com/anuraghazra/github-readme-stats)
+
+# Support
+
+All my work is and always will be free and open source. If you'd like to support me, **please consider leaving a star**, as it motivates me and the community to keep working on this project.
+
+Thanks for reading!
