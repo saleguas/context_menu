@@ -12,6 +12,29 @@ Documentation available at: https://context_menu.readthedocs.io/en/latest/
 
 * * *
 
+- [⚙ Features ⚙](#--features--)
+  * [🙋 What is the context menu? 🙋](#---what-is-the-context-menu----)
+  * [🖥️ What Operating Systems are supported? 🖥️](#----what-operating-systems-are-supported-----)
+  * [🐍 What Python versions are supported? 🐍](#---what-python-versions-are-supported----)
+- [💽 Installation 💽](#---installation---)
+- [🕹️ Quickstart 🕹️](#----quickstart----)
+- [🤖 Advanced Usage 🤖](#---advanced-usage---)
+  * [The `ContextMenu` Class](#the--contextmenu--class)
+  * [The `ContextCommand` Class](#the--contextcommand--class)
+  * [The `FastCommand` Class](#the--fastcommand--class)
+  * [The `removeMenu` method](#the--removemenu--method)
+  * [The `params` Command Parameter](#the--params--command-parameter)
+  * [`command_vars` Command Parameter](#-command-vars--command-parameter)
+  * [Opening on Files](#opening-on-files)
+  * [Activation Types](#activation-types)
+- [🏁 Goals 🏁](#---goals---)
+- [🙌 Contribution 🙌](#---contribution---)
+- [📓 Important notes 📓](#---important-notes---)
+- [💻 Freshen - A context_menu project! 💻](#---freshen---a-context-menu-project----)
+- [💙 Support 💙](#---support---)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 # ⚙ Features ⚙
 
 context_menu was created as due to the lack of an intuitive and easy to use cross-platform context menu library. The
