@@ -1,4 +1,4 @@
-# [context_menu](https://github.com/saleguas/context_menu) ![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) [![Downloads](https://pepy.tech/badge/context-menu)](https://pepy.tech/project/context-menu)
+# 🗂️[context_menu](https://github.com/saleguas/context_menu) ![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) [![Downloads](https://pepy.tech/badge/context-menu)](https://pepy.tech/project/context-menu)
 
 ![logo](media/logo.png)
 
@@ -12,7 +12,7 @@ Documentation available at: https://context_menu.readthedocs.io/en/latest/
 
 * * *
 
-# Features
+# ⚙ Features ⚙
 
 context_menu was created as due to the lack of an intuitive and easy to use cross-platform context menu library. The
 library allows you to create your own context menu entries and control their behavior seamlessly in native Python. The
@@ -26,7 +26,7 @@ library has the following features:
 * The ability to natively integrate python functions from a context entry call
 * Detailed documentation
 
-## What is the context menu?
+## 🙋 What is the context menu? 🙋
 
 The context menu is the window that is displayed when you right click:
 
@@ -35,7 +35,7 @@ The context menu is the window that is displayed when you right click:
 The context menu is different depending on what was right clicked. For example, right clicking a folder will give you
 different options than right clicking a file.
 
-## What Operating Systems are supported?
+## 🖥️ What Operating Systems are supported? 🖥️ 
 
 Currently, the only operating systems supported are:
 
@@ -44,11 +44,11 @@ Currently, the only operating systems supported are:
 - Windows 11
 - Linux (Using Nautilus)
 
-## What Python versions are supported?
+## 🐍 What Python versions are supported? 🐍
 
 **All python versions 3.1 and above** are supported.
 
-# Installation
+# 💽 Installation 💽
 
 If you haven't installed Python, download and run an installer from the official
 website: https://www.python.org/downloads/
@@ -70,7 +70,7 @@ _Note: If you're on Windows and it says the command isn't recognized, make sure 
 add [Python to your path](https://datatofish.com/add-python-to-windows-path/) and run the command prompt as
 administrator_
 
-# Quickstart
+# 🕹️ Quickstart 🕹️
 
 Let's say you want to make a basic context menu entry when you right click a file.
 
@@ -139,7 +139,7 @@ if __name__ == '__main__':
 
 ![second Example](media/second_example.png)
 
-# Advanced Usage
+# 🤖 Advanced Usage 🤖
 
 ## The `ContextMenu` Class
 
@@ -320,7 +320,7 @@ You can check out the official documentation [here](https://context-menu.readthe
 
 * * *
 
-# Goals
+# 🏁 Goals 🏁
 
 This project tackles some pretty big issues, and there's definetly some goals that I'd like to accomplish. The current roadmap is as follows:
 
@@ -331,26 +331,27 @@ This project tackles some pretty big issues, and there's definetly some goals th
 
 If by all means you want to help reach these milestones, see contribution below.
 
-# Contribution
+# 🙌 Contribution 🙌
 
 Contributing is super simple! Create an additional branch and make a pull request with your changes. If the changes past the automated tests, it will be manually reviewed and merged accordingly.
 
 Any and all help is appreciated, and if you have any questions, feel free to contact me directly.
 
-# Important notes
+# 📓 Important notes 📓
 
 - Almost all the errors I've encountered in testing were when the code and the functions were in the same file. You
   should make a separate file for the code or surround it with `if __name__ == '__main__':`.
 - On windows, there's currently a 16 entry limit on the context menu.
 
-# Freshen - A context_menu project!
+# 💻 Freshen - A context_menu project! 💻
 
 Feel free to check out a [file sorter](https://github.com/saleguas/freshen) program I made that directly implements this library.
 
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=saleguas&repo=freshen)](https://github.com/anuraghazra/github-readme-stats)
 
-# Support
+# 💙 Support 💙
 
-All my work is and always will be free and open source. If you'd like to support me, **please consider leaving a star**, as it motivates me and the community to keep working on this project.
+All my work is and always will be free and open source. If you'd like to support me, **please consider leaving a ⭐ star ⭐**, as it motivates me and the community to keep working on this project.
 
 Thanks for reading!
+
