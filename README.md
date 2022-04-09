@@ -12,6 +12,7 @@ Documentation available at: https://context_menu.readthedocs.io/en/latest/
 
 * * *
 
+# Table of Contents
 - [⚙ Features ⚙](#--features--)
   * [🙋 What is the context menu? 🙋](#---what-is-the-context-menu----)
   * [🖥️ What Operating Systems are supported? 🖥️](#----what-operating-systems-are-supported-----)
@@ -32,8 +33,6 @@ Documentation available at: https://context_menu.readthedocs.io/en/latest/
 - [📓 Important notes 📓](#---important-notes---)
 - [💻 Freshen - A context_menu project! 💻](#---freshen---a-context-menu-project----)
 - [💙 Support 💙](#---support---)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 # ⚙ Features ⚙
 
