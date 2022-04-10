@@ -355,6 +355,8 @@ If by all means you want to help reach these milestones, see contribution below.
 
 # 🙌 Contribution 🙌
 
+**I _really_ want to add support for MacOS, but I don't have the experience required to implement it.**
+
 Contributing is super simple! Create an additional branch and make a pull request with your changes. If the changes past the automated tests, it will be manually reviewed and merged accordingly.
 
 Any and all help is appreciated, and if you have any questions, feel free to contact me directly.
