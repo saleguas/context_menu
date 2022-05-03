@@ -161,6 +161,8 @@ if __name__ == '__main__':
 
 ![second Example](media/second_example.png)
 
+All context menus are **permanent** unless you remove them.
+
 # 🤖 Advanced Usage 🤖
 
 ## The `ContextMenu` Class
