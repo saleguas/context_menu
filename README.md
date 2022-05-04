@@ -373,7 +373,7 @@ Any and all help is appreciated, and if you have any questions, feel free to con
 
 Feel free to check out a [file sorter](https://github.com/saleguas/freshen) program I made that directly implements this library.
 
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=saleguas&repo=freshen)](https://github.com/anuraghazra/github-readme-stats)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=saleguas&repo=freshen)](https://github.com/saleguas/freshen)
 
 # 💙 Support 💙
 
