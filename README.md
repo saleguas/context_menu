@@ -14,7 +14,7 @@ Documentation available at: https://context_menu.readthedocs.io/en/latest/
 
 # Table of Contents
 - [⚙ Features ⚙](#--features--)
-  * [🙋 What is the context menu? 🙋](#---what-is-the-context-menu----)
+  * [🙋 What is the context menu? 🙋](#🙋-what-is-the-context-menu-🙋)
   * [🖥️ What Operating Systems are supported? 🖥️](#----what-operating-systems-are-supported-----)
   * [🐍 What Python versions are supported? 🐍](#---what-python-versions-are-supported----)
 - [💽 Installation 💽](#---installation---)
