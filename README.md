@@ -35,6 +35,7 @@ Documentation available at: https://context_menu.readthedocs.io/en/latest/
 - [💙 Support 💙](#---support---)
 
 # ⚙ Features ⚙
+This library lets you edit the entries on the right click menu for Windows and Linux using pure Python. It also allows you to make cascading context menus!
 
 context_menu was created as due to the lack of an intuitive and easy to use cross-platform context menu library. The
 library allows you to create your own context menu entries and control their behavior seamlessly in native Python. The
