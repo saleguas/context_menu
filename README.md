@@ -109,7 +109,7 @@ It's super easy!
 You can create entries in as little as 3 lines:
 
 ```python
-    from context_menu import menus
+from context_menu import menus
 
 fc = menus.FastCommand('Example Fast Command 1', type='FILES', command='echo Hello')
 fc.compile()
