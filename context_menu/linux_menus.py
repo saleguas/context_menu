@@ -161,7 +161,7 @@ class NautilusMenu:
         '''
         # nautilus extensions doesn't work with filenames with spaces
         # Example menu item -> ExampleMenuItem
-        self.name = "".join([word.title() for word in name.split()])
+        self.name = "".join([word.title() for word in name.split()]) if len(name.split()) > 0 else name
         self.sub_items = sub_items
         self.type = type
         self.counter = 0
