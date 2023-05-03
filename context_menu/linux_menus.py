@@ -15,7 +15,10 @@ import gi
 import sys
 import os
 
-gi.require_version('Nautilus', '3.0')
+try:
+\tgi.require_version('Nautilus', '3.0')
+except:
+\tgi.require_version('Nautilus', '4.0')
 
 from gi.repository import Nautilus, GObject
 
@@ -28,7 +31,7 @@ except ImportError:
     '''
 
     CLASS_TEMPLATE = '''
-class ExampleMenuProvider(GObject.GObject, Nautilus.MenuProvider):
+class {}MenuProvider(GObject.GObject, Nautilus.MenuProvider):
 \tdef __init__(self):
 \t\tpass
 '''
@@ -47,8 +50,10 @@ class ExampleMenuProvider(GObject.GObject, Nautilus.MenuProvider):
 
 '''
 
-    FILE_ITEMS = '\tdef get_file_items(self, window, files):'
-    BACKGROUND_ITEMS = '\tdef get_background_items(self, window, files):'
+    FILE_ITEMS = '''\tdef get_file_items(self, *args):
+\t\tfiles = args[-1]'''
+    BACKGROUND_ITEMS = '''\tdef get_background_items(self, *args):
+\t\tfiles = args[-1]'''
     SUB_MENU = 'submenu{} = Nautilus.Menu()'
     MENU_ITEM = 'menuitem{} = Nautilus.MenuItem(name = "ExampleMenuProvider::{}", label="{}", tip = "{}", icon = "{}")'
 
@@ -60,11 +65,12 @@ class CodeBuilder:
     The CodeBuilder class is used for generating the final python file for the Linux menus.
     '''
 
-    def __init__(self, body_commands: list, script_dirs: list, funcs: list, imports: list, type: str):
+    def __init__(self, name: str, body_commands: list, script_dirs: list, funcs: list, imports: list, type: str):
         '''
         Pass the list of body_commands, the directories of all the scripts, the
         list of the function names, the list of the imports, and the type.
         '''
+        self.name = name
         self.body_commands = body_commands
         self.script_dirs = list(set(script_dirs))
         self.funcs = funcs
@@ -98,7 +104,7 @@ class CodeBuilder:
         code_head = ExistingCode.CODE_HEAD.value
         script_dirs_code = self.build_script_dirs()
         imports_code = self.build_imports()
-        class_dec = ExistingCode.CLASS_TEMPLATE.value
+        class_dec = ExistingCode.CLASS_TEMPLATE.value.format(self.name)
         class_funcs = '\n\n'.join(self.funcs)
         class_type = ExistingCode.FILE_ITEMS.value
         if self.type in ['DIRECTORY_BACKGROUND', 'DESKTOP_BACKGROUND']:
@@ -153,7 +159,9 @@ class NautilusMenu:
         '''
         Items required are the name of the top menu, the sub items, and the type.
         '''
-        self.name = name
+        # nautilus extensions doesn't work with filenames with spaces
+        # Example menu item -> ExampleMenuItem
+        self.name = "".join([word.title() for word in name.split()])
         self.sub_items = sub_items
         self.type = type
         self.counter = 0
@@ -318,7 +326,7 @@ class NautilusMenu:
         '''
         self.build_script_body(self.name, self.sub_items)
         self.commands.append('return menuitem0,')
-        full_code = CodeBuilder(
+        full_code = CodeBuilder(self.name,
             self.commands, self.script_dirs, self.funcs, self.imports, self.type).compile()
 
         return full_code
