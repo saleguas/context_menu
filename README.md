@@ -1,10 +1,10 @@
-# 🗂️[context_menu](https://github.com/saleguas/context_menu) ![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)   ![readthedocs](https://img.shields.io/readthedocs/context_menu) ![pip](https://img.shields.io/badge/pip-context__menu-blue) [![Downloads](https://pepy.tech/badge/context-menu)](https://pepy.tech/project/context-menu)
+# 🗂️[context_menu](https://github.com/saleguas/context_menu) [![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)](https://app.travis-ci.com/github/saleguas/context_menu)   [![readthedocs](https://img.shields.io/readthedocs/context_menu)](https://context-menu.readthedocs.io/en/latest/) ![pip](https://img.shields.io/badge/pip-context__menu-blue) [![Downloads](https://pepy.tech/badge/context-menu)](https://pepy.tech/project/context-menu)
 
 ![logo](media/logo.png)
 
 💻 A Python library to create and deploy cross-platform native context menus. 💻
 
-Documentation available at: https://context_menu.readthedocs.io/en/latest/
+Documentation available at: https://context-menu.readthedocs.io/en/latest/
 
 * * *
 
@@ -13,26 +13,26 @@ Documentation available at: https://context_menu.readthedocs.io/en/latest/
 * * *
 
 # Table of Contents
-- [⚙ Features ⚙](#--features--)
-  * [🙋 What is the context menu? 🙋](#🙋-what-is-the-context-menu-🙋)
-  * [🖥️ What Operating Systems are supported? 🖥️](#----what-operating-systems-are-supported-----)
-  * [🐍 What Python versions are supported? 🐍](#---what-python-versions-are-supported----)
-- [💽 Installation 💽](#---installation---)
-- [🕹️ Quickstart 🕹️](#----quickstart----)
-- [🤖 Advanced Usage 🤖](#---advanced-usage---)
-  * [The `ContextMenu` Class](#the--contextmenu--class)
-  * [The `ContextCommand` Class](#the--contextcommand--class)
-  * [The `FastCommand` Class](#the--fastcommand--class)
-  * [The `removeMenu` method](#the--removemenu--method)
-  * [The `params` Command Parameter](#the--params--command-parameter)
-  * [`command_vars` Command Parameter](#-command-vars--command-parameter)
+- [⚙ Features ⚙](#-features-)
+  * [🙋 What is the context menu? 🙋](#-what-is-the-context-menu-)
+  * [🖥️ What Operating Systems are supported? 🖥️](#%EF%B8%8F-what-operating-systems-are-supported-%EF%B8%8F)
+  * [🐍 What Python versions are supported? 🐍](#-what-python-versions-are-supported-)
+- [💽 Installation 💽](#-installation-)
+- [🕹️ Quickstart 🕹️](#%EF%B8%8F-quickstart-%EF%B8%8F)
+- [🤖 Advanced Usage 🤖](#-advanced-usage-)
+  * [The `ContextMenu` Class](#the-contextmenu-class)
+  * [The `ContextCommand` Class](#the-contextcommand-class)
+  * [The `FastCommand` Class](#the-fastcommand-class)
+  * [The `removeMenu` method](#the-removemenu-method)
+  * [The `params` Command Parameter](#the-params-command-parameter)
+  * [`command_vars` Command Parameter](#command_vars-command-parameter)
   * [Opening on Files](#opening-on-files)
   * [Activation Types](#activation-types)
-- [🏁 Goals 🏁](#---goals---)
-- [🙌 Contribution 🙌](#---contribution---)
-- [📓 Important notes 📓](#---important-notes---)
-- [💻 Freshen - A context_menu project! 💻](#---freshen---a-context-menu-project----)
-- [💙 Support 💙](#---support---)
+- [🏁 Goals 🏁](#-goals-)
+- [🙌 Contribution 🙌](#-contribution-)
+- [📓 Important notes 📓](#-important-notes-)
+- [💻 Freshen - A context_menu project! 💻](#-freshen---a-context_menu-project-)
+- [💙 Support 💙](#-support-)
 
 # ⚙ Features ⚙
 This library lets you edit the entries on the right click menu for Windows and Linux using pure Python. It also allows you to make cascading context menus!
