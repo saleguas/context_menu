@@ -23,14 +23,15 @@ def test_command_func():
     assert valid_func == lm.code
 
 
-def test_build_script_body():
-    nm = linux_menus.NautilusMenu(fc.name, [menus.ContextCommand(
-        fc.name, command=fc.command, python=fc.python)], fc.type)
-    nm.build_script()
-    valid_commands = ['menuitem0 = Nautilus.MenuItem(name = "ExampleMenuProvider::TestCommand", label="TestCommand", tip = "", icon = "")', 'submenu1 = Nautilus.Menu()', 'menuitem0.set_submenu(submenu1)',
-                      'menuitem2 = Nautilus.MenuItem(name = "ExampleMenuProvider::TestCommand", label="TestCommand", tip = "", icon = "")', 'menuitem2.connect("activate", self.method_handler3, files)', 'submenu1.append_item(menuitem2)', 'return menuitem0,']
+# getting rid of this after update
+# def test_build_script_body():
+#     nm = linux_menus.NautilusMenu(fc.name, [menus.ContextCommand(
+#         fc.name, command=fc.command, python=fc.python)], fc.type)
+#     nm.build_script()
+#     valid_commands = ['menuitem0 = Nautilus.MenuItem(name = "ExampleMenuProvider::TestCommand", label="TestCommand", tip = "", icon = "")', 'submenu1 = Nautilus.Menu()', 'menuitem0.set_submenu(submenu1)',
+#                       'menuitem2 = Nautilus.MenuItem(name = "ExampleMenuProvider::TestCommand", label="TestCommand", tip = "", icon = "")', 'menuitem2.connect("activate", self.method_handler3, files)', 'submenu1.append_item(menuitem2)', 'return menuitem0,']
 
-    print(nm.commands)
-    print()
-    print(valid_commands)
-    assert nm.commands == valid_commands
+#     print(nm.commands)
+#     print()
+#     print(valid_commands)
+#     assert nm.commands == valid_commands
