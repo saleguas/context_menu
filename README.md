@@ -70,7 +70,7 @@ Currently, the only operating systems supported are:
 
 ## 🐍 What Python versions are supported? 🐍
 
-**All python versions 3.1 and above** are supported.
+**All python versions 3.7 and above** are supported.
 
 # 💽 Installation 💽
 
