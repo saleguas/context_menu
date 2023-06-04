@@ -1,9 +1,4 @@
-import sys, os
-# from context_menu import menus
-# from context_menu import windows_menus
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-import menus
-import windows_menus
+from context_menu import menus, windows_menus
 # ------------------------------------------------------------------------------
 # Required files for setup
 # ------------------------------------------------------------------------------

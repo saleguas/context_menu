@@ -6,3 +6,5 @@ __pycache__
 .test_cm
 direct_test.py
 .idea
+.coverage
+pytest-report.html

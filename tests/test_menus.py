@@ -2,8 +2,7 @@ import os
 import sys
 
 # from context_menu import menus
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-import menus
+from context_menu import menus
 
 def get_last_path_item(path):
     return os.path.basename(os.path.normpath(path))

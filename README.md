@@ -1,4 +1,4 @@
-# 🗂️[context_menu](https://github.com/saleguas/context_menu) [![build passing](https://travis-ci.com/saleguas/context_menu.svg?token=STF1haAqx5Xq2x9zdkHH&branch=master)](https://app.travis-ci.com/github/saleguas/context_menu)   [![readthedocs](https://img.shields.io/readthedocs/context_menu)](https://context-menu.readthedocs.io/en/latest/) ![pip](https://img.shields.io/badge/pip-context__menu-blue) [![Downloads](https://pepy.tech/badge/context-menu)](https://pepy.tech/project/context-menu)
+# 🗂️[context_menu](https://github.com/saleguas/context_menu) [![build passing](https://github.com/saleguas/context_menu/actions/workflows/ci.yml/badge.svg)](https://github.com/saleguas/context_menu/actions/workflows/ci.yml)   [![readthedocs](https://img.shields.io/readthedocs/context_menu)](https://context-menu.readthedocs.io/en/latest/) ![pip](https://img.shields.io/badge/pip-context__menu-blue) [![Downloads](https://pepy.tech/badge/context-menu)](https://pepy.tech/project/context-menu)
 
 ![logo](media/logo.png)
 

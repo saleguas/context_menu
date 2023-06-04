@@ -1,0 +1,38 @@
+name: build
+
+on:
+  push:
+    paths-ignore:
+      - "**.md"
+      - "examples"
+      - "media"
+      - "LICENSE"
+  pull_request:
+    paths-ignore:
+      - "**.md"
+      - "examples"
+      - "media"
+      - "LICENSE"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04, windows-latest]
+        python: ["3.6", "3.7", "3.8"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install Tox and any other packages
+        run: |
+             python -m pip install -U pip
+             python -m pip install tox
+      - name: Run Tox
+        run: tox -- -v --color=yes
+        env:
+            TOXENV: py${{ matrix.python-version}}-cov
