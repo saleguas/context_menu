@@ -5,7 +5,7 @@ import setuptools
 HERE = pathlib.Path(__file__).parent
 
 # The text of the README file
-README = (HERE / "README.md").read_text(encoding='utf-8')
+README = (HERE / "README.md").read_text(encoding="utf-8")
 
 # This call to setup() does all the work
 setuptools.setup(
@@ -25,5 +25,6 @@ setuptools.setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(exclude=["tests*"]),
+    extras_require={"test": ["pytest-html"]},
 )
