@@ -5,7 +5,7 @@ import os
 from enum import Enum
 
 if TYPE_CHECKING:
-    from context_menu.menus import ContextMenu, ItemType, ActivationType
+    from context_menu.menus import ContextMenu, ItemType, ActivationType, CommandVar
 
 # code_preset.py -------------------------------------
 
@@ -271,7 +271,7 @@ class NautilusMenu:
         return Variable(f"self.{func_name}", created_func)
 
     def generate_mod_command_func(
-        self, command: str, command_vars: list[str]
+        self, command: str, command_vars: list[CommandVar]
     ) -> Variable:
         """
         Generates a command attached to a python function that allows special variables.
