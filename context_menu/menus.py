@@ -56,6 +56,9 @@ class ContextMenu:
         """
         Recognizes the current platform and passes information to the respective menu. Creates the actual menu.
         """
+        if self.type is None:
+            raise Exception("type can't be None for top-level ContextMenu")
+
         if platform.system() == "Linux":
             linux_menus.NautilusMenu(self.name, self.sub_items, self.type).compile()
         if platform.system() == "Windows":
