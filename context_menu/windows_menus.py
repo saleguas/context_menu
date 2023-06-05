@@ -8,7 +8,13 @@ import sys
 if TYPE_CHECKING:
     from typing import Iterable
     from types import FunctionType
-    from context_menu.menus import ItemType, MethodInfo, ActivationType, ContextMenu
+    from context_menu.menus import (
+        ItemType,
+        MethodInfo,
+        ActivationType,
+        CommandVar,
+        ContextMenu,
+    )
 
 
 # registry_shortcuts.py ----------------------------------------------------------------------------------------
@@ -195,7 +201,7 @@ def create_directory_background_command(
     return full_command
 
 
-def create_shell_command(command: str, command_vars: list) -> str:
+def create_shell_command(command: str, command_vars: list[CommandVar]) -> str:
     """
     Creates a shell command and replaces '?' with the command_vars list
     """
@@ -320,7 +326,7 @@ class FastRegistryCommand:
         command: str,
         python: FunctionType,
         params: str,
-        command_vars: list[str],
+        command_vars: list[CommandVar],
     ) -> None:
         self.name = name
         self.type = type

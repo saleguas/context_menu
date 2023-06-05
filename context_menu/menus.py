@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from types import FunctionType
 
     ActivationType = Literal["FILES", "DIRECTORY", "DIRECTORY_BACKGROUND", "DRIVE"]
+    CommandVar = Literal["FILENAME", "DIR", "DIRECTORY", "PYTHONLOC"]
     ItemType = Union["ContextMenu", "ContextCommand"]
     MethodInfo = Tuple[str, str, str]
 
@@ -80,7 +81,7 @@ class ContextCommand:
         command: str | None = None,
         python: FunctionType | None = None,
         params: str = "",
-        command_vars: list[str] | None = None,
+        command_vars: list[CommandVar] | None = None,
     ) -> None:
         """
         Do not specify both 'python' and 'command', either pass a python function or a command but not both.
@@ -133,7 +134,7 @@ class FastCommand:
         command: str | None = None,
         python: FunctionType | None = None,
         params: str = "",
-        command_vars: list[str] | None = None,
+        command_vars: list[CommandVar] | None = None,
     ) -> None:
         self.name = name
         self.type = type
