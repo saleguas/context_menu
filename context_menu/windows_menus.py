@@ -8,7 +8,7 @@ import sys
 if TYPE_CHECKING:
     from typing import Iterable
     from types import FunctionType
-    from context_menu.menus import ItemType, MethodInfo, ContextMenu
+    from context_menu.menus import ItemType, MethodInfo, ActivationType, ContextMenu
 
 
 # registry_shortcuts.py ----------------------------------------------------------------------------------------
@@ -316,7 +316,7 @@ class FastRegistryCommand:
     def __init__(
         self,
         name: str,
-        type: str,
+        type: ActivationType | str,
         command: str,
         python: FunctionType,
         params: str,
@@ -376,7 +376,7 @@ class FastRegistryCommand:
 
 try:
 
-    def remove_windows_menu(name: str, type: str) -> None:
+    def remove_windows_menu(name: str, type: ActivationType | str) -> None:
         """
         Removes a context menu from the windows registry.
         """
