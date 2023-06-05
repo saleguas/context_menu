@@ -6,9 +6,10 @@ import os
 import platform
 
 if TYPE_CHECKING:
-    from typing import Tuple, Union
+    from typing import Tuple, Union, Literal
     from types import FunctionType
 
+    ActivationType = Literal["FILES", "DIRECTORY", "DIRECTORY_BACKGROUND", "DRIVE"]
     ItemType = Union["ContextMenu", "ContextCommand"]
     MethodInfo = Tuple[str, str, str]
 
@@ -34,7 +35,7 @@ class ContextMenu:
     The general menu class. This class generalizes the menus and eventually passes the correct values to the platform-specifically menus.
     """
 
-    def __init__(self, name: str, type: str | None = None) -> None:
+    def __init__(self, name: str, type: ActivationType | str | None = None) -> None:
         """
         Only specify type if it's the root menu.
         """
@@ -128,7 +129,7 @@ class FastCommand:
     def __init__(
         self,
         name: str,
-        type: str,
+        type: ActivationType | str,
         command: str | None = None,
         python: FunctionType | None = None,
         params: str = "",
@@ -182,7 +183,7 @@ class FastCommand:
 
 try:
 
-    def removeMenu(name: str, type: str) -> None:
+    def removeMenu(name: str, type: ActivationType | str) -> None:
         """
         Removes a menu/command entry from a context menu.
 

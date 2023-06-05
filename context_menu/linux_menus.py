@@ -5,7 +5,7 @@ import os
 from enum import Enum
 
 if TYPE_CHECKING:
-    from context_menu.menus import ContextMenu, ItemType
+    from context_menu.menus import ContextMenu, ItemType, ActivationType
 
 # code_preset.py -------------------------------------
 
@@ -78,7 +78,7 @@ class CodeBuilder:
         script_dirs: list[str],
         funcs: list[str],
         imports: list[str],
-        type: str,
+        type: ActivationType | str,
     ) -> None:
         """
         Pass the list of body_commands, the directories of all the scripts, the
@@ -178,7 +178,9 @@ class Variable:
 
 class NautilusMenu:
     # Constructor, automatically handeled by menus.py
-    def __init__(self, name: str, sub_items: list[ItemType], type: str) -> None:
+    def __init__(
+        self, name: str, sub_items: list[ItemType], type: ActivationType | str
+    ) -> None:
         """
         Items required are the name of the top menu, the sub items, and the type.
         """
