@@ -6,7 +6,7 @@ import ctypes
 import sys
 
 if TYPE_CHECKING:
-    from typing import Iterable
+    from typing import Any
     from types import FunctionType
     from context_menu.menus import (
         ItemType,
@@ -67,6 +67,17 @@ try:
         winreg.SetValueEx(registry_key, subkey_name, 0, winreg.REG_SZ, value)
         winreg.CloseKey(registry_key)
 
+    def get_key_value(
+        key_path: str,
+        subkey_name: str,
+        hive: int = winreg.HKEY_CURRENT_USER,
+    ) -> Any:
+        """
+        Gets the value of a subkey.
+        """
+        with winreg.OpenKey(hive, key_path, 0, winreg.KEY_READ) as open_key:
+            return winreg.QueryValueEx(open_key, subkey_name)[0]
+
     def list_keys(path: str, hive: int = winreg.HKEY_CURRENT_USER) -> list[str]:
         """
         Returns a list of all the keys at a given registry path.
@@ -95,6 +106,39 @@ try:
         winreg.DeleteKey(open_key, "")
 
 except:
+
+    def create_key(path: str, hive: int = 0) -> None:
+        """
+        Creates a key at the desired path.
+        """
+        raise NotImplementedError("winreg is not available on this platform")
+
+    def set_key_value(
+        key_path: str, subkey_name: str, value: str | int, hive: int = 0
+    ) -> None:
+        """
+        Changes the value of a subkey. Creates the subkey if it doesn't exist.
+        """
+        raise NotImplementedError("winreg is not available on this platform")
+
+    def get_key_value(key_path: str, subkey_name: str, hive: int = 0) -> Any:
+        """
+        Gets the value of a subkey.
+        """
+        raise NotImplementedError("winreg is not available on this platform")
+
+    def list_keys(path: str, hive: int = 0) -> list[str]:
+        """
+        Returns a list of all the keys at a given registry path.
+        """
+        raise NotImplementedError("winreg is not available on this platform")
+
+    def delete_key(path: str, hive: int = 0) -> None:
+        """
+        Deletes the desired key and all other subkeys at the given path.
+        """
+        raise NotImplementedError("winreg is not available on this platform")
+
     print("Not windows")
 
 
@@ -104,7 +148,7 @@ except:
 # These are the paths in the registry that correlate to when the context menu is fired.
 # For example, FILES is when a file is right clicked
 CONTEXT_SHORTCUTS = {
-    "FILELOC": "Software\\Classes\\",
+    "FILELOC": "Software\\Classes",
     "FILES": "Software\\Classes\\*\\shell",
     "DIRECTORY": "Software\\Classes\\Directory\\shell",
     "DIRECTORY_BACKGROUND": "Software\\Classes\\Directory\\Background\\shell",
@@ -125,6 +169,18 @@ COMMAND_VARS = {
 }
 
 
+def join_keys(*keys: str) -> str:
+    """Joins parts of a registry path.
+
+    This joins the parts with \\ unlike os.path.join that would
+    use / on Linux and break tests.
+
+    :param keys: parts of the registry path
+    :return: complete registry path
+    """
+    return "\\".join(keys)
+
+
 def context_registry_format(item: str) -> str:
     """
     Converts a verbose type into a registry path.
@@ -133,7 +189,7 @@ def context_registry_format(item: str) -> str:
     """
     item = item.upper()
     if "." in item:
-        return os.path.join(CONTEXT_SHORTCUTS["FILELOC"], item.lower(), "shell")
+        return join_keys(CONTEXT_SHORTCUTS["FILELOC"], item.lower(), "shell")
     return CONTEXT_SHORTCUTS[item]
 
 
@@ -211,7 +267,7 @@ def create_shell_command(command: str, command_vars: list[CommandVar]) -> str:
     ]
     new_command = command.replace("?", "{}").format(*transformed_vars)
     python_section = """import os; import sys; os.system('{}')""".format(new_command)
-    full_command = '"{}" -c "{}" "%1""'.format(sys.executable, python_section)
+    full_command = '"{}" -c "{}" "%1"'.format(sys.executable, python_section)
     return full_command
 
 
@@ -239,13 +295,13 @@ class RegistryMenu:
 
         Used in the compile method.
         """
-        key_path = os.path.join(path, name)
+        key_path = join_keys(path, name)
         create_key(key_path)
 
         set_key_value(key_path, "MUIVerb", name)
         set_key_value(key_path, "subcommands", "")
 
-        key_shell_path = os.path.join(key_path, "shell")
+        key_shell_path = join_keys(key_path, "shell")
         create_key(key_shell_path)
 
         return key_shell_path
@@ -254,11 +310,11 @@ class RegistryMenu:
         """
         Creates a key with a command subkey with the 'name' and 'command', at path 'path'.
         """
-        key_path = os.path.join(path, name)
+        key_path = join_keys(path, name)
         create_key(key_path)
         set_key_value(key_path, "", name)
 
-        command_path = os.path.join(key_path, "command")
+        command_path = join_keys(key_path, "command")
         create_key(command_path)
         set_key_value(command_path, "", command)
 
@@ -276,7 +332,7 @@ class RegistryMenu:
         assert items is not None
         assert path is not None
         for item in items:
-            if isinstance(item, ContextMenu):
+            if item.isMenu:
                 # if the item is a menu
                 submenu_path = self.create_menu(item.name, path)
                 self.compile(items=item.sub_items, path=submenu_path)
@@ -350,10 +406,10 @@ class FastRegistryCommand:
     def compile(self) -> None:
         # run_admin()
 
-        key_path = os.path.join(self.path, self.name)
+        key_path = join_keys(self.path, self.name)
         create_key(key_path)
 
-        command_path = os.path.join(key_path, "command")
+        command_path = join_keys(key_path, "command")
         create_key(command_path)
 
         new_command = self.command
@@ -387,7 +443,7 @@ try:
         Removes a context menu from the windows registry.
         """
         # run_admin()
-        menu_path = os.path.join(context_registry_format(type), name)
+        menu_path = join_keys(context_registry_format(type), name)
         delete_key(menu_path)
 
 except Exception:
