@@ -14,21 +14,8 @@ if TYPE_CHECKING:
     ItemType = Union["ContextMenu", "ContextCommand"]
     MethodInfo = Tuple[str, str, str]
 
-# Need to append all the python subdirectories because Python doesn't recognize them
-sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
-
-# Import the necessary library depending on the OS
-if platform.system() == "Linux":
-    try:
-        import linux_menus
-    except:
-        from context_menu import linux_menus
-if platform.system() == "Windows":
-    try:
-        import windows_menus
-    except:
-        from context_menu import windows_menus
+from context_menu import linux_menus, windows_menus
 
 
 class ContextMenu:

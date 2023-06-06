@@ -314,7 +314,7 @@ class NautilusMenu:
         self.commands.append(submenu_com)
 
         for item in items:
-            if isinstance(item, ContextMenu):
+            if item.isMenu:
                 subsubmenu_con = self.append_item(top_menu.name, self.get_next_item())
                 self.build_script_body(item.name, item.sub_items)
                 self.commands.append(subsubmenu_con)
