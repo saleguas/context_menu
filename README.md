@@ -357,6 +357,29 @@ This project tackles some pretty big issues, and there's definetly some goals th
 
 If by all means you want to help reach these milestones, see contribution below.
 
+## 📜 License
+
+`context_menu` is proudly licensed under the [MIT License](LICENSE).
+
+### Why the MIT License?
+
+I chose the MIT License for `context_menu` because of its simplicity and permissiveness. It embodies the spirit of open-source by granting users the freedom to use, modify, and distribute the software. I believe in empowering developers and fostering a collaborative environment. By using the MIT License, I hope to encourage innovation, sharing, and the continued growth of the developer community.
+
+### What does the MIT License mean for you?
+
+- **Freedom to Use**: You can use the software for any purpose without any restrictions.
+- **Freedom to Change**: Feel free to modify the software to suit your needs.
+- **Freedom to Share**: Share the software with your peers, colleagues, or anyone else.
+- **Freedom to Distribute Modified Versions**: If you make enhancements or fixes, you can distribute your modified version, ensuring that others can benefit from your contributions.
+
+However, there are some responsibilities when using software under the MIT License:
+
+- **Include the Original License**: Whenever you distribute the software or derivative works, always include the original MIT License.
+- **No Warranty**: Please note that the software is provided "as is" without any warranty.
+
+For the full license text and details, please refer to the [LICENSE](LICENSE) file in the repository.
+
+
 # 🙌 Contribution 🙌
 
 **I _really_ want to add support for MacOS, but I don't have the experience required to implement it.**
