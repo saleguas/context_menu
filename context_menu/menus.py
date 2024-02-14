@@ -23,7 +23,7 @@ class ContextMenu:
     The general menu class. This class generalizes the menus and eventually passes the correct values to the platform-specifically menus.
     """
 
-    def __init__(self, name: str, type: ActivationType | str | None = None) -> None:
+    def __init__(self, name: str, type: ActivationType | str | None = None, icon_path: str = None) -> None:
         """
         Only specify type if it's the root menu.
         """
@@ -31,6 +31,7 @@ class ContextMenu:
         self.name = name
         self.sub_items: list[ItemType] = []
         self.type = type
+        self.icon_path = icon_path
         self.isMenu = True  # Needed to avoid circular imports
 
     def add_items(self, items: list[ItemType]) -> None:
@@ -49,7 +50,7 @@ class ContextMenu:
         if platform.system() == "Linux":
             linux_menus.NautilusMenu(self.name, self.sub_items, self.type).compile()
         if platform.system() == "Windows":
-            windows_menus.RegistryMenu(self.name, self.sub_items, self.type).compile()
+            windows_menus.RegistryMenu(self.name, self.sub_items, self.type, self.icon_path).compile()
 
 
 class ContextCommand:

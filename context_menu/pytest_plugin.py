@@ -84,6 +84,24 @@ class MockedWinReg:
         ):
             assert self.get_key_value(f"{parent}\\{name}{k}", sk) == v
 
+    def assert_context_menu_with_icon(self, parent: str, name: str, icon_path: str) -> None:
+        """Asserts that keys for a ContextMenu with icon are correctly set.
+
+        :param parent: parent \\shell key
+        :param name: name of the key for the menu
+        :param icon_path: path of the icon for the menu
+        """
+        for k, sk, v in (
+            # Checks the key parent\\name
+            ("", "", ""),
+            ("", "MUIVerb", name),
+            ("", "Icon", icon_path),
+            ("", "subcommands", ""),
+            # Checks the key parent\\name\\shell
+            ("\\shell", "", ""),
+        ):
+            assert self.get_key_value(f"{parent}\\{name}{k}", sk) == v
+
     def assert_context_command(self, parent: str, name: str, command: str) -> None:
         """Asserts that keys for a ContextCommand are correctly set.
 
