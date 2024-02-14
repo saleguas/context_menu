@@ -31,7 +31,7 @@ class ContextMenu:
         self.name = name
         self.sub_items: list[ItemType] = []
         self.type = type
-        self.iconPath = icon_path
+        self.icon_path = icon_path
         self.isMenu = True  # Needed to avoid circular imports
 
     def add_items(self, items: list[ItemType]) -> None:
