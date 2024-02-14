@@ -170,11 +170,11 @@ All context menus are **permanent** unless you remove them.
 ## The `ContextMenu` Class
 
 The [ContextMenu](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.ContextMenu) object
-holds other context objects. It expects a name, and **the activation type** if it is the root menu(the first menu). Only
+holds other context objects. It expects a name, **the activation type** if it is the root menu(the first menu), and an optional icon path. Only
 compile the root menu.
 
 ```Python
-ContextMenu(name: str, type: str = None)
+ContextMenu(name: str, type: str = None, icon_path: str = None)
 ```
 
 Menus can be added to menus, creating cascading context menus. You can use
