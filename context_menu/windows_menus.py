@@ -153,6 +153,7 @@ CONTEXT_SHORTCUTS = {
     "DIRECTORY": "Software\\Classes\\Directory\\shell",
     "DIRECTORY_BACKGROUND": "Software\\Classes\\Directory\\Background\\shell",
     "DRIVE": "Software\\Classes\\Drive\\shell",
+    "DESKTOP": "Software\\Classes\\DesktopBackground\\shell",
 }
 
 # Not used yet, but could be useful in the future

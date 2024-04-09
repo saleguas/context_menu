@@ -83,6 +83,15 @@ def test_context_menu_nested(
                 sys.executable, Path(__file__).parent.as_posix()
             ),
         ),
+        # Test with DESKTOP
+        (
+            "DESKTOP",
+            {"python": foo},
+            "Software\\Classes\\DesktopBackground\\shell",
+            '''"{}" -c "import sys; import os; sys.path.insert(0, '{}'); import test_windows; test_windows.foo([os.getcwd()],'')"'''.format(
+                sys.executable, Path(__file__).parent.as_posix()
+            ),
+        ),
     ),
 )
 def test_context_command(
