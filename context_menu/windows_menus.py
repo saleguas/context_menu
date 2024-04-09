@@ -148,7 +148,7 @@ except:
 # These are the paths in the registry that correlate to when the context menu is fired.
 # For example, FILES is when a file is right clicked
 CONTEXT_SHORTCUTS = {
-    "FILELOC": "Software\\Classes",
+    "FILELOC": "Software\\Classes\\SystemFileAssociations",
     "FILES": "Software\\Classes\\*\\shell",
     "DIRECTORY": "Software\\Classes\\Directory\\shell",
     "DIRECTORY_BACKGROUND": "Software\\Classes\\Directory\\Background\\shell",

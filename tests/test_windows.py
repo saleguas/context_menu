@@ -145,7 +145,7 @@ def test_context_command(
         (
             ".txt",
             {"command": "echo hello"},
-            "Software\\Classes\\.txt\\shell",
+            "Software\\Classes\\SystemFileAssociations\\.txt\\shell",
             "echo hello",
         ),
     ),
