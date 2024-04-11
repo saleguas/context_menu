@@ -280,16 +280,17 @@ class RegistryMenu:
     Class to convert the general menu from menus.py to a Windows-specific menu.
     """
 
-    def __init__(self, name: str, sub_items: list[ItemType], type: str) -> None:
+    def __init__(self, name: str, sub_items: list[ItemType], type: str, icon_path: str = None) -> None:
         """
         Handled automatically by menus.py, but requires a name, all the sub items, and a type
         """
         self.name = name
         self.sub_items = sub_items
         self.type = type.upper()
+        self.icon_path = icon_path
         self.path = context_registry_format(type)
 
-    def create_menu(self, name: str, path: str) -> str:
+    def create_menu(self, name: str, path: str, icon_path: str = None) -> str:
         """
         Creates a menu with the given name and path.
 
@@ -300,6 +301,8 @@ class RegistryMenu:
 
         set_key_value(key_path, "MUIVerb", name)
         set_key_value(key_path, "subcommands", "")
+        if icon_path is not None:
+            set_key_value(key_path, 'Icon', icon_path)
 
         key_shell_path = join_keys(key_path, "shell")
         create_key(key_shell_path)
@@ -327,14 +330,14 @@ class RegistryMenu:
         if items == None:
             # run_admin()
             items = self.sub_items
-            path = self.create_menu(self.name, self.path)
+            path = self.create_menu(self.name, self.path, self.icon_path)
 
         assert items is not None
         assert path is not None
         for item in items:
             if item.isMenu:
                 # if the item is a menu
-                submenu_path = self.create_menu(item.name, path)
+                submenu_path = self.create_menu(item.name, path, self.icon_path)
                 self.compile(items=item.sub_items, path=submenu_path)
                 continue
 
