@@ -88,7 +88,7 @@ def test_context_menu_nested(
             "DESKTOP",
             {"python": foo},
             "Software\\Classes\\DesktopBackground\\shell",
-            '''"{}" -c "import sys; import os; sys.path.insert(0, '{}'); import test_windows; test_windows.foo([os.getcwd()],'')"'''.format(
+            '''"{}" -c "import sys; sys.path.insert(0, '{}'); import test_windows; test_windows.foo([' '.join(sys.argv[1:]) ],'')" "%1"'''.format(
                 sys.executable, Path(__file__).parent.as_posix()
             ),
         ),
