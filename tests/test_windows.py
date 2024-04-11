@@ -65,6 +65,15 @@ def test_context_menu(windows_platform: None, mocked_winreg: MockedWinReg) -> No
                 sys.executable, Path(__file__).parent.as_posix()
             ),
         ),
+        # Test with DESKTOP
+        (
+            "DESKTOP",
+            {"python": foo},
+            "Software\\Classes\\DesktopBackground\\shell",
+            '''"{}" -c "import sys; sys.path.insert(0, '{}'); import test_windows; test_windows.foo([' '.join(sys.argv[1:]) ],'')" "%1"'''.format(
+                sys.executable, Path(__file__).parent.as_posix()
+            ),
+        ),
     ),
 )
 def test_context_command(
@@ -127,7 +136,7 @@ def test_context_command(
         (
             ".txt",
             {"command": "echo hello"},
-            "Software\\Classes\\.txt\\shell",
+            "Software\\Classes\\SystemFileAssociations\\.txt\\shell",
             "echo hello",
         ),
     ),

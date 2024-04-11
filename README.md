@@ -336,6 +336,7 @@ can reference this table to determine the `type`:
 | DIRECTORY            | HKEY_CURRENT_USER\\Software\\Classes\\Directory\\shell             | Opens on a directory                     |
 | DIRECTORY_BACKGROUND | HKEY_CURRENT_USER\\Software\\Classes\\Directory\\Background\\shell | Opens on the background of the Directory |
 | DRIVE                | HKEY_CURRENT_USER\\Software\\Classes\\Drive\\shell                 | Opens on the drives(think USBs)          |
+| DESKTOP              | Software\\Classes\\DesktopBackground\\shell                        | Opens on the background of the desktop   |
 
 * * *
 
