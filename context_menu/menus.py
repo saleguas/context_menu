@@ -73,6 +73,7 @@ class ContextCommand:
         python: FunctionType | None = None,
         params: str = "",
         command_vars: list[CommandVar] | None = None,
+        icon_path: str = None,
     ) -> None:
         """
         Do not specify both 'python' and 'command', either pass a python function or a command but not both.
@@ -83,6 +84,7 @@ class ContextCommand:
         self.python = python
         self.params = params
         self.command_vars = command_vars
+        self.icon_path = icon_path
 
         if command != None and python != None:
             raise ValueError("both command and python cannot be defined")
@@ -126,6 +128,7 @@ class FastCommand:
         python: FunctionType | None = None,
         params: str = "",
         command_vars: list[CommandVar] | None = None,
+        icon_path: str = None,
     ) -> None:
         self.name = name
         self.type = type
@@ -133,6 +136,7 @@ class FastCommand:
         self.python = python
         self.params = params
         self.command_vars = command_vars
+        self.icon_path = icon_path
 
         if command != None and python != None:
             raise ValueError("both command and python cannot be defined")
@@ -170,6 +174,7 @@ class FastCommand:
                 self.python,
                 self.params,
                 self.command_vars,
+                self.icon_path,
             ).compile()
 
 

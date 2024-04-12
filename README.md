@@ -202,7 +202,7 @@ class creates the selectable part of the menu (you can click it). It requires a 
 command **(but NOT both)** and has various other options
 
 ```Python
-ContextCommand(name: str, command: str = None, python: 'function' = None, params: str = None, command_vars: list = None)
+ContextCommand(name: str, command: str = None, python: 'function' = None, params: str = None, command_vars: list = None, icon_path: str = None)
 ```
 
 Python functions can be passed to this method, regardless of their location. **However, the function must accept only
@@ -234,11 +234,11 @@ Any command passed (as a string) will be directly ran from the shell.
 
 The [FastCommand](https://context-menu.readthedocs.io/en/latest/context_menu.html#context_menu.menus.FastCommand) class
 is an extension of the ContextMenu class and allows you to quickly create a single entry menu. It expects a name, type,
-and command/function.
+command/function and an optional icon path.
 
 ```python
 FastCommand(
-    name: str, type: str, command: str = None, python: 'function' = None, params: str = '', command_vars: list = None)
+    name: str, type: str, command: str = None, python: 'function' = None, params: str = '', command_vars: list = None, icon_path: str = None)
 ```
 
 ```python

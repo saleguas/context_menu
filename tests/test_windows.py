@@ -29,7 +29,7 @@ def test_context_menu(windows_platform: None, mocked_winreg: MockedWinReg) -> No
 
 
 @pytest.mark.parametrize(
-    "activation_type,params,expected_parent,expected_command",
+    "activation_type,params,expected_parent,expected_command,expected_icon",
     (
         # Test with a simple command
         (
@@ -37,6 +37,15 @@ def test_context_menu(windows_platform: None, mocked_winreg: MockedWinReg) -> No
             {"command": "echo hello"},
             "Software\\Classes\\*\\shell",
             "echo hello",
+            None,
+        ),
+        # Test with an icon
+        (
+            "FILES",
+            {"command": "echo hello", "icon_path": "\\this\\is\\a\\placeholder.ico"},
+            "Software\\Classes\\*\\shell",
+            "echo hello",
+            "\\this\\is\\a\\placeholder.ico"
         ),
         # Test with command variables
         (
@@ -46,6 +55,7 @@ def test_context_menu(windows_platform: None, mocked_winreg: MockedWinReg) -> No
             '''"{}" -c "import os; import sys; os.system('echo ' + ' '.join(sys.argv[1:])  + '')" "%1"'''.format(
                 sys.executable
             ),
+            None,
         ),
         # Test with a python function
         (
@@ -55,6 +65,7 @@ def test_context_menu(windows_platform: None, mocked_winreg: MockedWinReg) -> No
             '''"{}" -c "import sys; sys.path.insert(0, '{}'); import test_windows; test_windows.foo([' '.join(sys.argv[1:]) ],'')" "%1"'''.format(
                 sys.executable, Path(__file__).parent.as_posix()
             ),
+            None,
         ),
         # Test with DIRECTORY_BACKGROUND
         (
@@ -64,6 +75,7 @@ def test_context_menu(windows_platform: None, mocked_winreg: MockedWinReg) -> No
             '''"{}" -c "import sys; import os; sys.path.insert(0, '{}'); import test_windows; test_windows.foo([os.getcwd()],'')"'''.format(
                 sys.executable, Path(__file__).parent.as_posix()
             ),
+            None,
         ),
         # Test with DESKTOP
         (
@@ -73,6 +85,7 @@ def test_context_menu(windows_platform: None, mocked_winreg: MockedWinReg) -> No
             '''"{}" -c "import sys; sys.path.insert(0, '{}'); import test_windows; test_windows.foo([' '.join(sys.argv[1:]) ],'')" "%1"'''.format(
                 sys.executable, Path(__file__).parent.as_posix()
             ),
+            None,
         ),
     ),
 )
@@ -81,6 +94,7 @@ def test_context_command(
     params: dict[str, Any],
     expected_parent: str,
     expected_command: str,
+    expected_icon: str,
     windows_platform: None,
     mocked_winreg: MockedWinReg,
 ) -> None:
@@ -90,13 +104,19 @@ def test_context_command(
     cm.compile()
 
     mocked_winreg.assert_context_menu(expected_parent, "Test")
-    mocked_winreg.assert_context_command(
-        f"{expected_parent}\\Test\\shell", "Command", expected_command
-    )
+
+    if expected_icon is not None:
+        mocked_winreg.assert_context_command_with_icon(
+            f"{expected_parent}\\Test\\shell", "Command", expected_command, expected_icon
+        )
+    else:
+        mocked_winreg.assert_context_command(
+            f"{expected_parent}\\Test\\shell", "Command", expected_command
+        )
 
 
 @pytest.mark.parametrize(
-    "activation_type,params,expected_parent,expected_command",
+    "activation_type,params,expected_parent,expected_command,expected_icon",
     (
         # Test with a simple command
         (
@@ -104,6 +124,15 @@ def test_context_command(
             {"command": "echo hello"},
             "Software\\Classes\\*\\shell",
             "echo hello",
+            None,
+        ),
+        # Test with an icon
+        (
+            "FILES",
+            {"command": "echo hello", "icon_path": "\\this\\is\\a\\placeholder.ico"},
+            "Software\\Classes\\*\\shell",
+            "echo hello",
+            "\\this\\is\\a\\placeholder.ico",
         ),
         # Test with command variables
         (
@@ -113,6 +142,7 @@ def test_context_command(
             '''"{}" -c "import os; import sys; os.system('echo ' + ' '.join(sys.argv[1:])  + '')" "%1"'''.format(
                 sys.executable
             ),
+            None,
         ),
         # Test with a python function
         (
@@ -122,6 +152,7 @@ def test_context_command(
             '''"{}" -c "import sys; sys.path.insert(0, '{}'); import test_windows; test_windows.foo([' '.join(sys.argv[1:]) ],'')" "%1"'''.format(
                 sys.executable, Path(__file__).parent.as_posix()
             ),
+            None,
         ),
         # Test with DIRECTORY_BACKGROUND
         (
@@ -131,6 +162,7 @@ def test_context_command(
             '''"{}" -c "import sys; import os; sys.path.insert(0, '{}'); import test_windows; test_windows.foo([os.getcwd()],'')"'''.format(
                 sys.executable, Path(__file__).parent.as_posix()
             ),
+            None,
         ),
         # Test with file extension
         (
@@ -138,6 +170,7 @@ def test_context_command(
             {"command": "echo hello"},
             "Software\\Classes\\SystemFileAssociations\\.txt\\shell",
             "echo hello",
+            None,
         ),
     ),
 )
@@ -146,10 +179,15 @@ def test_fast_command(
     params: dict[str, Any],
     expected_parent: str,
     expected_command: str,
+    expected_icon: str | None,
     windows_platform: None,
     mocked_winreg: MockedWinReg,
 ) -> None:
     """Tests FastCommand with various options."""
     menus.FastCommand("Test", activation_type, **params).compile()
 
-    mocked_winreg.assert_fast_command(expected_parent, "Test", expected_command)
+    if expected_icon is not None:
+        mocked_winreg.assert_fast_command_with_icon(expected_parent, "Test", expected_command, expected_icon)
+    else:
+        mocked_winreg.assert_fast_command(expected_parent, "Test", expected_command)
+

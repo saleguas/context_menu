@@ -117,6 +117,23 @@ class MockedWinReg:
         ):
             assert self.get_key_value(f"{parent}\\{name}{k}", "") == v
 
+    def assert_context_command_with_icon(self, parent: str, name: str, command: str, icon_path: str) -> None:
+        """Asserts that keys for a ContextCommand are correctly set.
+
+        :param parent: parent \\shell key
+        :param name: name of the key for the command
+        :param command: expected command set in \\command
+        """
+        for k, v in (
+            # Checks the key parent\\name
+            ("", name),
+            # Checks the key parent\\name\\command
+            ("\\command", command),
+        ):
+            assert self.get_key_value(f"{parent}\\{name}{k}", "") == v
+
+        assert self.get_key_value(f"{parent}\\{name}", "Icon") == icon_path
+
     def assert_fast_command(self, parent: str, name: str, command: str) -> None:
         """Asserts that keys for a FastCommand are correctly set.
 
@@ -134,6 +151,26 @@ class MockedWinReg:
             ("\\command", command),
         ):
             assert self.get_key_value(f"{parent}\\{name}{k}", "") == v
+
+    def assert_fast_command_with_icon(self, parent: str, name: str, command: str, icon_path: str) -> None:
+        """Asserts that keys for a FastCommand are correctly set.
+
+        For some reasons, the name is no set when using FastCommand,
+        while it is set for a ContextCommand.
+
+        :param parent: parent \\shell key
+        :param name: name of the key for the command
+        :param command: expected command set in \\command
+        """
+        for k, v in (
+            # Checks the key parent\\name
+            ("", ""),
+            # Checks the key parent\\name\\command
+            ("\\command", command),
+        ):
+            assert self.get_key_value(f"{parent}\\{name}{k}", "") == v
+
+        assert self.get_key_value(f"{parent}\\{name}", "Icon") == icon_path
 
 
 @pytest.fixture
