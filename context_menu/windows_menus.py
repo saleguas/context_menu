@@ -310,7 +310,7 @@ class RegistryMenu:
 
         return key_shell_path
 
-    def create_command(self, name: str, path: str, command: str) -> None:
+    def create_command(self, name: str, path: str, command: str, icon_path: str = None) -> None:
         """
         Creates a key with a command subkey with the 'name' and 'command', at path 'path'.
         """
@@ -321,6 +321,9 @@ class RegistryMenu:
         command_path = join_keys(key_path, "command")
         create_key(command_path)
         set_key_value(command_path, "", command)
+
+        if icon_path is not None:
+            set_key_value(key_path, 'Icon', icon_path)
 
     def compile(
         self, items: list[ItemType] | None = None, path: str | None = None
@@ -357,17 +360,17 @@ class RegistryMenu:
                     new_command = create_file_select_command(
                         func_name, func_file_name, func_dir_path, item.params
                     )
-                self.create_command(item.name, path, new_command)
+                self.create_command(item.name, path, new_command, item.icon_path)
             elif item.command_vars != None:
                 # If the item has to be ran from os.system
                 assert item.command is not None
                 assert item.command_vars is not None
                 new_command = create_shell_command(item.command, item.command_vars)
-                self.create_command(item.name, path, new_command)
+                self.create_command(item.name, path, new_command, item.icon_path)
             else:
                 # The item is just a plain old command
                 assert item.command is not None
-                self.create_command(item.name, path, item.command)
+                self.create_command(item.name, path, item.command, item.icon_path)
 
 
 # Fast command class
