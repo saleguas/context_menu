@@ -390,6 +390,7 @@ class FastRegistryCommand:
         python: FunctionType,
         params: str,
         command_vars: list[CommandVar],
+        icon_path: str = None,
     ) -> None:
         self.name = name
         self.type = type
@@ -398,6 +399,7 @@ class FastRegistryCommand:
         self.python = python
         self.params = params
         self.command_vars = command_vars
+        self.icon_path = icon_path
 
     def get_method_info(self) -> MethodInfo:
         import inspect
@@ -439,6 +441,9 @@ class FastRegistryCommand:
             new_command = create_shell_command(self.command, self.command_vars)
 
         set_key_value(command_path, "", new_command)
+
+        if self.icon_path is not None:
+            set_key_value(key_path, 'Icon', self.icon_path)
 
 
 # Testing section...
