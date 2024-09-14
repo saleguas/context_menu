@@ -118,6 +118,14 @@ fc.compile()
 
 ![example fast command](media/example_fast_command.png)
 
+> **Note:** On Windows, the command `echo Hello` may not work as expected because `echo` is a built-in command of the cmd shell. To execute such commands on Windows, you need to prefix them with `cmd /c`. So the command becomes:
+> 
+> ```python
+> fc = menus.FastCommand('Example Fast Command 1', type='FILES', command='cmd /c echo Hello')
+> ```
+> 
+> This ensures that the command is run within the cmd shell.
+
 All you have to do is import the library and define the type of context entry you want. The options are:
 
 * A context menu (an entry that has more entries)
